@@ -224,9 +224,11 @@ We now load the data and inspect its structure using the `str` function - as the
 
 
 ```{r childes_01_01, message=F, warning=F}
-url = "https://slcladal.github.io/data/hslld.rda"
-download.file(url,"hslld.rds", method="curl")
-hslld <- readRDS("hslld.rds")
+hslld <- readRDS(url("https://slcladal.github.io/data/hslld.rda"))
+
+# If you have already downloaded the data file to data/hslld.rda you can also load it locally
+# hslld <- readRDS("data/hslld.rda")
+
 # inspect
 str(hslld[1:3])
 ```
