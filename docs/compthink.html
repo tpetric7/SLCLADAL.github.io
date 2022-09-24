@@ -13,7 +13,7 @@
 
 <title>Computational Thinking in the Humanities</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -46,7 +46,6 @@
 
   gtag('config', 'G-VSGK4KYDQZ');
 </script>
-
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -156,11 +155,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -327,7 +330,7 @@ div.tocify {
     <a href="index.html"> <!-- Make entire top row and text clickable home link  -->
         <div class="row">
             <div class="navbar-brand col-md-12">
-              <img src="ladal_icon_cas_tran_white_trimed.png" class="navbar-icon" alt="LADAL"/>
+              <img src="/content/ladal_icon_cas_tran_white_trimed.png" class="navbar-icon" alt="LADAL"/>
               <span class="navbar-title-note navbar-collapse collapse" >Language Technology and Data Analysis Laboratory</span>
             </div>
         </div>
@@ -374,7 +377,7 @@ div.tocify {
       <a href="workshops.html">Workshops</a>
     </li>
     <li>
-      <a href="compthink.html">Computational Thinking in HASS</a>
+      <a href="compthinking.html">Computational Thinking in HASS</a>
     </li>
     <li>
       <a href="webinars2022.html">LADAL Webinar Series 2022</a>
@@ -429,7 +432,7 @@ Humanities</h1>
 
 <p><img src="https://slcladal.github.io/images/web.jpeg" width="40%" style="float:right; padding:10px" /></p>
 <p>The workshop <strong>Computational Thinking in the
-Humanities</strong> is a 3-hour online workshop featuring two plenary
+Humanities</strong> was a 3-hour online workshop featuring two plenary
 talks, lightning presentations, as well as a panel discussion. The
 workshop is co-organized by the <a
 href="https://www.atap.edu.au/"><strong>Australian Text Analytics
@@ -438,16 +441,13 @@ href="https://www.kielipankki.fi/organization/fin-clariah/"><strong>FIN-CLARIAH<
 and its UEF representatives, and the <a
 href="https://www.digitalobservatory.net.au/"><strong>Australian Digital
 Observatory</strong></a>.</p>
-<p>The workshop has received financial support from the <a
+<p>The workshop has received financial supported from the <a
 href="https://hass.uq.edu.au/Digital-Cultures-and-Societies"><strong>Digital
 Cultures and Societies Hub</strong></a> at the <a
 href="https://uq.edu.au/">University of Queensland</a>.</p>
-<p>The workshop takes place</p>
+<p>The workshop took place</p>
 <p><strong>Thursday, Sep. 1, 2022</strong>, 5-8pm Queensland, 10am-1pm
 Finland, 8-11am UK.</p>
-<p><strong>Zoom link</strong>: <a
-href="https://uqz.zoom.us/j/86311263161"
-class="uri">https://uqz.zoom.us/j/86311263161</a></p>
 <div id="event-description" class="section level1 unnumbered">
 <h1 class="unnumbered">Event Description</h1>
 <p>Computers and software are now inescapable in our daily lives - while
@@ -475,37 +475,47 @@ discussions and plant the seeds for future collaborations.</p>
 </div>
 <div id="program" class="section level1 unnumbered">
 <h1 class="unnumbered">Program</h1>
-<p><strong>Part I (90 min)</strong></p>
+<p><strong>Part I (90 min, start 17:00 Queensland, 10:00 Finland, 8:00
+UK)</strong></p>
 <ul>
 <li><p>Opening and Introductions</p></li>
 <li><p>Plenary 1: <a
 href="https://researchportal.helsinki.fi/en/persons/krista-lagus">Krista
 Lagus</a>: Bridging the impossible - How to avoid bringing
-technodystopia to the social sciences</p></li>
+technodystopia to the social sciences <a
+href="https://youtu.be/PDGrWSyAPqo">[<strong>Watch on
+YouTube</strong>]</a></p></li>
 <li><p>Plenary 2: <a
 href="https://www.turing.ac.uk/people/researchers/barbara-mcgillivray">Barbara
 McGillivray</a>: Computational approaches and the Humanities: what might
-await us?</p></li>
+await us? <a href="https://youtu.be/7-5WWA9Ps2U">[<strong>Watch on
+YouTube</strong>]</a></p></li>
 </ul>
 <p>Break</p>
-<p><strong>Part 2 (80 mins)</strong></p>
+<p><strong>Part 2 (80 mins, start 18:30 Queensland, 11:30 Finland, 9:30
+UK)</strong></p>
 <ul>
-<li>Lightning talks
+<li>Lightning talks (10 mins + 2 mins time for changing presenters)
 <ul>
 <li><a
 href="https://www.qut.edu.au/about/our-people/academic-profiles/marissa.takahashi">Marissa
 Takahashi</a> (QUT, Project Manager of the <a
 href="https://www.digitalobservatory.net.au/">Australian Digital
-Observatory (ADO)</a>)</li>
+Observatory (ADO)</a>) <a
+href="https://youtu.be/jslHPCXcoiQ">[<strong>Watch on
+YouTube</strong>]</a></li>
 <li><a href="http://www.martinschweinberger.de">Martin Schweinberger</a>
-(UQ, co-director of <a href="https://ladal.edu.au/">LADAL</a>)<br />
-</li>
+(UQ, co-director of <a href="https://ladal.edu.au/">LADAL</a>) <a
+href="https://youtu.be/rdpAcoRW7a4">[<strong>Watch on
+YouTube</strong>]</a></li>
 <li><a href="https://blogs.helsinki.fi/jiemakel/">Eetu Mäkelä</a>
 (technical director of <a
-href="https://www.kielipankki.fi/organization/fin-clariah/">FIN-CLARIAH</a>)<br />
-</li>
+href="https://www.kielipankki.fi/organization/fin-clariah/">FIN-CLARIAH</a>)
+<a href="https://youtu.be/W1MxGWtHeec">[<strong>Watch on
+YouTube</strong>]</a></li>
 <li><a href="https://cc.oulu.fi/~scoats/">Steven Coats</a> (University
-of Oulu)</li>
+of Oulu) <a href="https://youtu.be/VqVuQe8n1xA">[<strong>Watch on
+YouTube</strong>]</a></li>
 </ul></li>
 <li>Panel discussion (20 min)</li>
 </ul>
