@@ -35,9 +35,6 @@ remotes::install_github("rlesur/klippy")
 Now that we have installed the packages, we activate them as shown below.
 
 ```{r gb1, message=FALSE, warning=FALSE}
-# set options
-options(stringsAsFactors = F)         # no automatic data transformation
-options("scipen" = 100, "digits" = 4) # suppress math annotation
 # activate packages
 library(tidyverse)
 library(gutenbergr)
@@ -145,7 +142,7 @@ romeo %>%
 
 # Loading texts simultaneously
 
-To load more than one text, you can use the `|` (or) operator to inform R that you want to download the text with the *gutenberg_id* 768 (*Wuthering Heights* and the text with the *gutenberg_id* 1260 which is *Jane Eyre* (the former is from Emily and the latter from Charlotte Brontë).^[I would like to thank Max Lauber for pointing out that I wrongly stated that both workes were written by Jane Austen in an earlier version of this tutorial.]
+To load more than one text, you can use the `|` (or) operator to inform R that you want to download the text with the *gutenberg_id* 768 (*Wuthering Heights* and the text with the *gutenberg_id* 1260 which is *Jane Eyre* (the former is from Emily and the latter from Charlotte Brontë).^[I would like to thank Max Lauber for pointing out that I wrongly stated that both works were written by Jane Austen in an earlier version of this tutorial.]
 
 ```{r gb12, message=F, warning=F}
 texts <- gutenberg_download(c(768, 1260), meta_fields = "title", 
@@ -165,14 +162,14 @@ Feel free to have a look at different texts provided by the Project Gutenberg!
 
 # Citation & Session Info {-}
 
-Schweinberger, Martin. `r format(Sys.time(), '%Y')`. *Downloading Texts from Project Gutenberg using R*. Brisbane: The University of Queensland. url: https://slcladal.github.io/gutenberg.html (Version `r format(Sys.time(), '%Y.%m.%d')`).
+Schweinberger, Martin. 2022. *Downloading Texts from Project Gutenberg using R*. Brisbane: The University of Queensland. url: https://slcladal.github.io/gutenberg.html (Version 2022.10.28).
 
 ```
-@manual{schweinberger`r format(Sys.time(), '%Y')`gb,
+@manual{schweinberger2022gb,
   author = {Schweinberger, Martin},
   title = {Downloading Texts from Project Gutenberg using R},
   note = {https://ladal.edu.au/gutenberg.html},
-  year = {`r format(Sys.time(), '%Y')`},
+  year = {2022},
   organization = "The University of Queensland, Australia. School of Languages and Cultures},
   address = {Brisbane},
   edition = {2022.10.28}
@@ -189,7 +186,7 @@ sessionInfo()
 
 [Back to top](#introduction)
 
-[Back to HOME](https://ladal.edu.au)
+[Back to LADAL home](https://ladal.edu.au)
 
 
 

@@ -1,31 +1,13 @@
 ![An interactive LADAL notebook](https://slcladal.github.io/images/uq1.jpg)
 
-***
-
-Please copy this Jupyter notebook so that you are able to edit it.
-
-Simply go to: File > Save a copy in Drive.
-
-Once you have done that, you are good to go.
-
-***
 
 This tutorial is the interactive Jupyter notebook accompanying the [*Language Technology and Data Analysis Laboratory* (LADAL) tutorial *String Processing in R*](https://ladal.edu.au/string.html). 
 
-***
 
 **Preparation and session set up**
 
-If you are using this notebook on Google Colab or your own computer and you have not already installed the R packages listed below, you need to install them. You can install them by running the code chunk below. 
+We set up our session by activating the packages we need for this tutorial. 
 
-```{r prep1, echo=T, eval = F, message=FALSE, warning=FALSE}
-# install packages
-install.packages("stringr")
-install.packages("dplyr")
-install.packages("htmlwidgets")
-```
-
-***
 
 ```{r prep2, message=FALSE} 
 # activate packages
@@ -35,6 +17,8 @@ library(htmlwidgets)
 ```
 
 Once you have initiated the session by executing the code shown above, you are good to go.
+
+If you are using this notebook on your own computer and you have not already installed the R packages listed above, you need to install them. You can install them by replacing the `library` command with `install.packages` and putting the name of the package into quotation marks like this: `install.packages("stringr")`. Then, you simply run this command and R will install the package you specified.
 
 # Loading data
 
@@ -87,12 +71,12 @@ While the tutorial uses data from the LADAL website, you can also use your own d
 
 The code chunk below allows you to upload two files from your own computer. To be able to load your own data, you need to click on the folder symbol to the left of the screen:
 
-![Colab Folder Symbol](https://slcladal.github.io/images/ColabFolder.png)
+![Binder Folder Symbol](https://slcladal.github.io/images/binderfolder.JPG)
 
 
 Then on the upload symbol.
 
-![Colab Upload Symbol](https://slcladal.github.io/images/ColabUpload.png)
+![Binder Upload Symbol](https://slcladal.github.io/images/binderupload.JPG)
 
 Next, upload the files you want to analyze and then the respective files names in the file argument of the scan function. When you then execute the code (like to code chunk below, you will upload your own data.
 
@@ -401,14 +385,7 @@ mtcars %>%
 
 Above, we have used functions and regular expressions to extract and find patters in textual data. Here, we will focus on common methods for cleaning text data that are applied before implementing certain methods.
 
-We start by installing and then loading some additional packages, e.g., the `quanteda` (see [here](https://raw.githubusercontent.com/rstudio/cheatsheets/main/quanteda.pdf) for a cheat sheet for the `quanteda` package), the `tm`, and the `udpipe` package, which are extremely useful when dealing with more advanced text processing.
-
-
-```{r atp0, eval = F, message=F, warning=F}
-install.packages("quanteda")
-install.packages("tm")
-install.packages("udpipe")
-```
+We start by loading some additional packages, e.g., the `quanteda` (see [here](https://raw.githubusercontent.com/rstudio/cheatsheets/main/quanteda.pdf) for a cheat sheet for the `quanteda` package), the `tm`, and the `udpipe` package, which are extremely useful when dealing with more advanced text processing.
 
 
 ```{r atp1, message=F, warning=F}
@@ -480,16 +457,11 @@ Before we can tokenize, lemmatize, pos-tag and parse though, we need to download
 
 ```{r atp12, eval = F, message=F, warning=F}
 # download language model
-m_eng   <- udpipe::udpipe_download_model(language = "english-ewt")
+m_eng  <- udpipe::udpipe_download_model(language = "english-ewt")
+# activate language model
+m_eng <- udpipe_load_model(file ="english-ewt-ud-2.5-191206.udpipe")
 ```
 
-
-If you have downloaded a model once, you can also load the model directly from the place where you stored it on your computer. In my case, I have stored the model in a folder called udpipemodels
-
-```{r atp14, message=F, warning=F}
-# load language model from your computer after you have downloaded it once
-m_eng <- udpipe_load_model(file = "/content/english-ewt-ud-2.5-191206.udpipe")
-```
 
 We can now use the model to annotate out text.
 
@@ -508,7 +480,7 @@ We could, of course, perform many more manipulations of textual data but this sh
 ***
 
 
-[Back to LADAL](https://ladal.edu.au)
+[Back to LADAL](https://ladal.edu.au/string.html)
 
 ***
 
