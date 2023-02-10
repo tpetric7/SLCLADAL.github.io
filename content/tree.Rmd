@@ -27,7 +27,10 @@ This tutorial is aimed at intermediate and advanced users of R with the aim of s
 <div class="warning" style='padding:0.1em; background-color:#f2f2f2; color:#51247a'>
 <span>
 <p style='margin-top:1em; text-align:center'>
-The entire R Notebook for the tutorial can be downloaded [**here**](https://slcladal.github.io/content/tree.Rmd).  If you want to render the R Notebook on your machine, i.e. knitting the document to html or a pdf, you need to make sure that you have R and RStudio installed and you also need to download the [**bibliography file**](https://slcladal.github.io/content/bibliography.bib) and store it in the same folder where you store the Rmd file. <br></p>
+The entire R Notebook for the tutorial can be downloaded [**here**](https://slcladal.github.io/content/tree.Rmd).  If you want to render the R Notebook on your machine, i.e. knitting the document to html or a pdf, you need to make sure that you have R and RStudio installed and you also need to download the [**bibliography file**](https://slcladal.github.io/content/bibliography.bib) and store it in the same folder where you store the Rmd file. <br><br>
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks/main?labpath=notebooks%2Ftree_cb.ipynb)<br>
+[**Click this link to open an interactive version of this tutorial on MyBinder.org**](https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks/main?labpath=notebooks%2Ftree_cb.ipynb). <br> This interactive Jupyter notebook allows you to execute code yourself and you can also change and edit the notebook, e.g. you can change code and upload your own data. <br>
+</p>
 <p style='margin-left:1em;'>
 </p></span>
 </div>
@@ -77,7 +80,7 @@ Despite these potential advantages, a word of warning is in order: @gries2021sta
 Before we implement a conditional inference tree in R, we will have a look at how decision trees work. We will do this in more detail here as random forests and Boruta analyses are extensions of inference trees and are therefore based on the same concepts.
 
 
-## Classification And Regression Trees
+## Classification And Regression Trees {-}
 
 Below is an example of a decision tree which shows what what response to expect - in this case whether a speaker uses discourse *like* or not. Decision trees, like all CARTs and CITs, answer a simple question, namely *How do we best classify elements based on the given predictors?*. The answer that decision trees provide is the classification of the elements based on the levels of the predictors. In simple decision trees, all predictors, even those that are not significant are included in the decision tree. The decision tree shows that the best (or most important) predictor for the use of discourse *like* is age as it is the highest node. Among young speakers, those with high status use *like* more compared with speakers of lower social status. Among old speakers, women use discourse *like* more than men.
 
@@ -531,7 +534,7 @@ citdata3 <- data.frame(AgeSplit, Gini)
 # inspect data
 citdata3 %>%
   as.data.frame() %>%
-#  head(10) %>%
+  head(10) %>%
   flextable() %>%
   flextable::set_table_properties(width = .75, layout = "autofit") %>%
   flextable::theme_zebra() %>%
@@ -677,7 +680,7 @@ citdata <- citdata %>%
 # inspect data
 citdata %>%
   as.data.frame() %>%
-#  head(10) %>%
+  head(10) %>%
   flextable() %>%
   flextable::set_table_properties(width = .75, layout = "autofit") %>%
   flextable::theme_zebra() %>%

@@ -25,8 +25,10 @@ This tutorial introduces part-of-speech tagging and syntactic parsing using R. T
 <div class="warning" style='padding:0.1em; background-color:#f2f2f2; color:#51247a'>
 <span>
 <p style='margin-top:1em; text-align:center'>
-The entire R Notebook for the tutorial can be downloaded [**here**](https://slcladal.github.io/content/tagging.Rmd).  If you want to render the R Notebook on your machine, i.e. knitting the document to html or a pdf, you need to make sure that you have R and RStudio installed and you also need to download the [**bibliography file**](https://slcladal.github.io/content/bibliography.bib) and store it in the same folder where you store the Rmd file. <br><br>
-**[Here](https://colab.research.google.com/drive/1-pKmtNFjIA25SeNsblwdoVU_46mRPNTQ?usp=sharing)** is a **link to an interactive and simplified version of this tutorial on Google Colab**. The interactive tutorial is based on a Jupyter notebook of this tutorial. This interactive Jupyter notebook allows you to execute code yourself and - if you copy the Jupyter notebook - you can also change and edit the notebook, e.g. you can change code and upload your own data.<br></p>
+The entire R Notebook for the tutorial can be downloaded [**here**](https://slcladal.github.io/content/postag.Rmd).  If you want to render the R Notebook on your machine, i.e. knitting the document to html or a pdf, you need to make sure that you have R and RStudio installed and you also need to download the [**bibliography file**](https://slcladal.github.io/content/bibliography.bib) and store it in the same folder where you store the Rmd file. <br><br>
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks/main?labpath=notebooks%2Fpostag_cb.ipynb)<br>
+[**Click this link to open an interactive version of this tutorial on MyBinder.org**](https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks/main?labpath=notebooks%2Fpostag_cb.ipynb). <br> This interactive Jupyter notebook allows you to execute code yourself and you can also change and edit the notebook, e.g. you can change code and upload your own data. <br>
+</p>
 <p style='margin-left:1em;'>
 </p></span>
 </div>
@@ -288,17 +290,17 @@ That's it for this tutorial. We hope that you have enjoyed this tutorial and lea
 
 # Citation & Session Info {-}
 
-Schweinberger, Martin. `r format(Sys.time(), '%Y')`. *Part-of-Speech Tagging and Dependency Parsing with R*. Brisbane: The University of Queensland. url: https://slcladal.github.io/postag.html (Version `r format(Sys.time(), '%Y.%m.%d')`).
+Schweinberger, Martin. 2023. *Part-of-Speech Tagging and Dependency Parsing with R*. Brisbane: The University of Queensland. url: https://slcladal.github.io/postag.html (Version 2023.01.11).
 
 ```
-@manual{schweinberger`r format(Sys.time(), '%Y')`postag,
+@manual{schweinberger2023postag,
   author = {Schweinberger, Martin},
   title = {Part-of-Speech Tagging and Dependency Parsing with R},
-  note = {https://slcladal.github.io/postag.html},
-  year = {`r format(Sys.time(), '%Y')`},
+  note = {https://ladal.edu.au/postag.html},
+  year = {2023},
   organization = "The University of Queensland, School of Languages and Cultures},
   address = {Brisbane},
-  edition = {`r format(Sys.time(), '%Y.%m.%d')`}
+  edition = {2023.01.11}
 }
 ```
 
@@ -310,7 +312,7 @@ sessionInfo()
 
 [Back to top](#introduction)
 
-[Back to HOME](https://slcladal.github.io/index.html)
+[Back to HOME](https://ladal.edu.au)
 
 ***
 
