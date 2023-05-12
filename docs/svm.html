@@ -14,7 +14,7 @@
 
 <title>Semantic Vector Space Models in R</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -36,7 +36,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/tabwid-1.1.2/tabwid.css" rel="stylesheet" />
+<link href="site_libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+<link href="site_libs/tabwid-1.0.0/scrool.css" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -73,28 +74,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 
 
@@ -179,15 +158,11 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -216,8 +191,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -225,9 +200,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -448,58 +430,18 @@ div.tocify {
 
 
 <p><img src="https://slcladal.github.io/images/uq1.jpg" width="100%" /></p>
-<div id="introduction" class="section level1 unnumbered">
-<h1 class="unnumbered">Introduction</h1>
-<p>This tutorial introduces Semantic Vector Space (SVM) modeling R.<a
-href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Semantic
-vector space models, also known as distributional semantic models, are a
-type of machine learning model that represent the meaning of words or
-phrases as high-dimensional vectors in a mathematical space. These
-models are designed to capture the semantic relationships between words
-based on the distribution of their occurrences in large text
-corpora.</p>
-<p>In semantic vector space models, words or phrases are represented as
-vectors in a high-dimensional space, where the distance between two
-vectors reflects the semantic similarity between the corresponding words
-or phrases. These models are typically trained using unsupervised
-learning techniques, such as singular value decomposition (SVD) or
-word2vec, on large corpora of text data.</p>
-<p>One of the main advantages of semantic vector space models is that
-they can capture complex semantic relationships between words, including
-synonymy, antonymy, hypernymy, and hyponymy. These models can also be
-used to perform tasks such as language modeling, text classification,
-sentiment analysis, and information retrieval.</p>
-<p>Semantic vector space models are particularly useful in natural
-language processing (NLP) applications, where the ability to accurately
-represent the meaning of words and phrases is critical for tasks such as
-machine translation, text summarization, and question answering. By
-using semantic vector space models, NLP systems can better understand
-the meaning of natural language text and improve their performance on a
-wide range of tasks.</p>
+<div id="introduction" class="section level1 unnumbered" number="">
+<h1 class="unnumbered" number="">Introduction</h1>
+<p>This tutorial introduces Semantic Vector Space (SVM) modeling R.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Semantic vector space models, also known as distributional semantic models, are a type of machine learning model that represent the meaning of words or phrases as high-dimensional vectors in a mathematical space. These models are designed to capture the semantic relationships between words based on the distribution of their occurrences in large text corpora.</p>
+<p>In semantic vector space models, words or phrases are represented as vectors in a high-dimensional space, where the distance between two vectors reflects the semantic similarity between the corresponding words or phrases. These models are typically trained using unsupervised learning techniques, such as singular value decomposition (SVD) or word2vec, on large corpora of text data.</p>
+<p>One of the main advantages of semantic vector space models is that they can capture complex semantic relationships between words, including synonymy, antonymy, hypernymy, and hyponymy. These models can also be used to perform tasks such as language modeling, text classification, sentiment analysis, and information retrieval.</p>
+<p>Semantic vector space models are particularly useful in natural language processing (NLP) applications, where the ability to accurately represent the meaning of words and phrases is critical for tasks such as machine translation, text summarization, and question answering. By using semantic vector space models, NLP systems can better understand the meaning of natural language text and improve their performance on a wide range of tasks.</p>
 <p><img src="https://slcladal.github.io/images/gy_chili.jpg" width="15%" style="float:right; padding:10px" /></p>
-<p>This tutorial is aimed at beginners and intermediate users of R with
-the aim of showcasing how to generate and visualize results of SVMs in
-R. The aim is not to provide a fully-fledged analysis but rather to show
-and exemplify selected useful methods associated with SVMs.</p>
-<div class="warning"
-style="padding:0.1em; background-color:#f2f2f2; color:#51247a">
+<p>This tutorial is aimed at beginners and intermediate users of R with the aim of showcasing how to generate and visualize results of SVMs in R. The aim is not to provide a fully-fledged analysis but rather to show and exemplify selected useful methods associated with SVMs.</p>
+<div class="warning" style="padding:0.1em; background-color:#f2f2f2; color:#51247a">
 <span>
 <p style="margin-top:1em; text-align:center">
-The entire R Notebook for the tutorial can be downloaded <a
-href="https://slcladal.github.io/content/svm.Rmd"><strong>here</strong></a>.
-If you want to render the R Notebook on your machine, i.e. knitting the
-document to html or a pdf, you need to make sure that you have R and
-RStudio installed and you also need to download the <a
-href="https://slcladal.github.io/content/bibliography.bib"><strong>bibliography
-file</strong></a> and store it in the same folder where you store the
-Rmd file. <br><br> <a
-href="https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks/main?labpath=notebooks%2Fsvm_cb.ipynb"><img
-src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a><br> <a
-href="https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks/main?labpath=notebooks%2Fsvm_cb.ipynb"><strong>Click
-this link to open an interactive version of this tutorial on
-MyBinder.org</strong></a>. <br> This interactive Jupyter notebook allows
-you to execute code yourself and you can also change and edit the
-notebook, e.g. you can change code and upload your own data. <br>
+The entire R Notebook for the tutorial can be downloaded <a href="https://slcladal.github.io/content/svm.Rmd"><strong>here</strong></a>. If you want to render the R Notebook on your machine, i.e. knitting the document to html or a pdf, you need to make sure that you have R and RStudio installed and you also need to download the <a href="https://slcladal.github.io/content/bibliography.bib"><strong>bibliography file</strong></a> and store it in the same folder where you store the Rmd file. <br><br> <a href="https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks-environment/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252FSLCLADAL%252Finteractive-notebooks%26urlpath%3Dlab%252Ftree%252Finteractive-notebooks%252Fnotebooks%252Fsvm_cb.ipynb%26branch%3Dmain"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a><br> <a href="https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks-environment/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252FSLCLADAL%252Finteractive-notebooks%26urlpath%3Dlab%252Ftree%252Finteractive-notebooks%252Fnotebooks%252Fsvm_cb.ipynb%26branch%3Dmain"><strong>Click this link to open an interactive version of this tutorial on MyBinder.org</strong></a>. <br> This interactive Jupyter notebook allows you to execute code yourself and you can also change and edit the notebook, e.g. you can change code and upload your own data. <br>
 </p>
 <p style="margin-left:1em;">
 </p>
@@ -507,17 +449,7 @@ notebook, e.g. you can change code and upload your own data. <br>
 </div>
 <p><br></p>
 <p><strong>Preparation and session set up</strong></p>
-<p>This tutorial is based on R. If you have not installed R or are new
-to it, you will find an introduction to and more information how to use
-R <a href="https://slcladal.github.io/intror.html">here</a>. For this
-tutorials, we need to install certain <em>packages</em> from an R
-<em>library</em> so that the scripts shown below are executed without
-errors. Before turning to the code below, please install the packages by
-running the code below this paragraph. If you have already installed the
-packages mentioned below, then you can skip ahead and ignore this
-section. To install the necessary packages, simply run the following
-code - it may take some time (between 1 and 5 minutes to install all of
-the libraries so you do not need to worry if it takes some time).</p>
+<p>This tutorial is based on R. If you have not installed R or are new to it, you will find an introduction to and more information how to use R <a href="https://slcladal.github.io/intror.html">here</a>. For this tutorials, we need to install certain <em>packages</em> from an R <em>library</em> so that the scripts shown below are executed without errors. Before turning to the code below, please install the packages by running the code below this paragraph. If you have already installed the packages mentioned below, then you can skip ahead and ignore this section. To install the necessary packages, simply run the following code - it may take some time (between 1 and 5 minutes to install all of the libraries so you do not need to worry if it takes some time).</p>
 <pre class="r"><code># set options
 options(&quot;scipen&quot; = 100, &quot;digits&quot; = 4) # suppress math annotation
 # install packages
@@ -526,63 +458,26 @@ install.packages(&quot;dplyr&quot;)
 install.packages(&quot;tm&quot;)
 install.packages(&quot;cluster&quot;)
 install.packages(&quot;flextable&quot;)</code></pre>
-<p>Once you have installed R and RStudio and initiated the session by
-executing the code shown above, you are good to go.</p>
+<p>Once you have installed R and RStudio and initiated the session by executing the code shown above, you are good to go.</p>
 </div>
-<div id="example-similarity-among-adjective-amplifiers"
-class="section level1 unnumbered">
-<h1 class="unnumbered">Example: Similarity among adjective
-amplifiers</h1>
-<p>Vector Space Models are particularly useful when dealing with
-language data as they provide very accurate estimates of
-<em>semantic</em> similarity based on <em>word embeddings</em> (or
-co-occurrence profiles). Word embeddings refer to the vectors which hold
-the frequency information about how frequently a given word has
-co-occurred with other words. If the ordering of co-occurring words
-remains constant, then the vectors can be used to determine which words
-have similar profiles.</p>
-<p>To show how vector space models work, we will follow the procedure
-described in <span class="citation">Levshina (<a
-href="#ref-levshina2015linguistics"
-role="doc-biblioref">2015</a>)</span>. However, we will not use her
-<code>Rling</code> package, which is not supported my R version 4.0.2,
-to calculate cosine similarities but rather the <code>coop</code>
-package <span class="citation">(see <a href="#ref-coop"
-role="doc-biblioref">Schmidt and Heckendorf 2019</a>)</span>. In this
-tutorial, we investigate similarities among amplifiers based on their
-co-occurrences (word embeddings) with adjectives. Adjective amplifiers
-are elements such as those in 1. to 5.</p>
+<div id="example-similarity-among-adjective-amplifiers" class="section level1 unnumbered" number="">
+<h1 class="unnumbered" number="">Example: Similarity among adjective amplifiers</h1>
+<p>Vector Space Models are particularly useful when dealing with language data as they provide very accurate estimates of <em>semantic</em> similarity based on <em>word embeddings</em> (or co-occurrence profiles). Word embeddings refer to the vectors which hold the frequency information about how frequently a given word has co-occurred with other words. If the ordering of co-occurring words remains constant, then the vectors can be used to determine which words have similar profiles.</p>
+<p>To show how vector space models work, we will follow the procedure described in <span class="citation">Levshina (<a href="#ref-levshina2015linguistics" role="doc-biblioref">2015</a>)</span>. However, we will not use her <code>Rling</code> package, which is not supported my R version 4.0.2, to calculate cosine similarities but rather the <code>coop</code> package <span class="citation">(see Schmidt and Heckendorf <a href="#ref-coop" role="doc-biblioref">2019</a>)</span>. In this tutorial, we investigate similarities among amplifiers based on their co-occurrences (word embeddings) with adjectives. Adjective amplifiers are elements such as those in 1. to 5.</p>
 <ol style="list-style-type: decimal">
-<li>The <em>very</em><sub>amplifier</sub>
-<em>nice</em><sub>adjective</sub> man.</li>
-<li>A <em>truely</em><sub>amplifier</sub>
-<em>remarkable</em><sub>adjective</sub> woman.</li>
-<li>He was <em>really</em><sub>amplifier</sub>
-<em>hesitant</em><sub>adjective</sub>.</li>
-<li>The child was <em>awefully</em><sub>amplifier</sub>
-<em>loud</em><sub>adjective</sub>.</li>
-<li>The festival was <em>so</em><sub>amplifier</sub>
-<em>amazing</em><sub>adjective</sub>!</li>
+<li>The <em>very</em><sub>amplifier</sub> <em>nice</em><sub>adjective</sub> man.</li>
+<li>A <em>truely</em><sub>amplifier</sub> <em>remarkable</em><sub>adjective</sub> woman.</li>
+<li>He was <em>really</em><sub>amplifier</sub> <em>hesitant</em><sub>adjective</sub>.</li>
+<li>The child was <em>awefully</em><sub>amplifier</sub> <em>loud</em><sub>adjective</sub>.</li>
+<li>The festival was <em>so</em><sub>amplifier</sub> <em>amazing</em><sub>adjective</sub>!</li>
 </ol>
-<p>The similarity among adjective amplifiers can then be used to find
-clusters or groups of amplifiers that “behave” similarly and are
-interchangeable. To elaborate, adjective amplifiers are interchangeable
-with some variants but not with others (consider 6. to 8.; the question
-mark signifies that the example is unlikely to be used or grammatically
-not acceptable by L1 speakers of English).</p>
+<p>The similarity among adjective amplifiers can then be used to find clusters or groups of amplifiers that “behave” similarly and are interchangeable. To elaborate, adjective amplifiers are interchangeable with some variants but not with others (consider 6. to 8.; the question mark signifies that the example is unlikely to be used or grammatically not acceptable by L1 speakers of English).</p>
 <ol start="6" style="list-style-type: decimal">
-<li>The <em>very</em><sub>amplifier</sub>
-<em>nice</em><sub>adjective</sub> man.</li>
-<li>The <em>really</em><sub>amplifier</sub>
-<em>nice</em><sub>adjective</sub> man.</li>
-<li><sup>?</sup>The <em>completely</em><sub>amplifier</sub>
-<em>nice</em><sub>adjective</sub> man.</li>
+<li>The <em>very</em><sub>amplifier</sub> <em>nice</em><sub>adjective</sub> man.</li>
+<li>The <em>really</em><sub>amplifier</sub> <em>nice</em><sub>adjective</sub> man.</li>
+<li><sup>?</sup>The <em>completely</em><sub>amplifier</sub> <em>nice</em><sub>adjective</sub> man.</li>
 </ol>
-<p>We start by loading the required packages, the data, and then
-displaying the data which is called “vsmdata” and consist of 5,000
-observations of adjectives and contains two columns: one column with the
-adjectives (Adjectives) and another column which has the amplifiers (“0”
-means that the adjective occurred without an amplifier).</p>
+<p>We start by loading the required packages, the data, and then displaying the data which is called “vsmdata” and consist of 5,000 observations of adjectives and contains two columns: one column with the adjectives (Adjectives) and another column which has the amplifiers (“0” means that the adjective occurred without an amplifier).</p>
 <pre class="r"><code># load packages
 library(coop)
 library(dplyr)
@@ -592,7 +487,7 @@ library(flextable)
 # load data
 vsmdata &lt;- read.delim(&quot;https://slcladal.github.io/data/vsmdata.txt&quot;,
                       sep = &quot;\t&quot;, header = T)</code></pre>
-<template id="4eb13f28-edf5-4a3d-a403-c2ed30ea5ef5"><style>
+<template id="5927cb55-ff86-4fe3-9119-fb957bfe8efc"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -600,11 +495,10 @@ vsmdata &lt;- read.delim(&quot;https://slcladal.github.io/data/vsmdata.txt&quot;
   margin-left:auto;
   margin-right:auto;
   border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
   border-color: transparent;
-  caption-side: top;
-}
-.tabwid-caption-bottom table{
-  caption-side: bottom;
 }
 .tabwid_left table{
   margin-left:0;
@@ -612,7 +506,7 @@ vsmdata &lt;- read.delim(&quot;https://slcladal.github.io/data/vsmdata.txt&quot;
 .tabwid_right table{
   margin-right:0;
 }
-.tabwid td, .tabwid th {
+.tabwid td {
     padding: 0;
 }
 .tabwid a {
@@ -630,20 +524,25 @@ background-color: transparent;
 .katex-display {
     margin: 0 0 !important;
 }
-</style><div class="tabwid"><style>.cl-df718bcc{table-layout:auto;width:75%;}.cl-df64853a{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-df648544{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-df692c70{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-df694d5e{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df694d68{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df694d72{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df694d73{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df694d74{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df694d75{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df694d7c{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df694d7d{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-df718bcc'><thead><tr style="overflow-wrap:break-word;"><th class="cl-df694d5e"><p class="cl-df692c70"><span class="cl-df64853a">Amplifier</span></p></th><th class="cl-df694d68"><p class="cl-df692c70"><span class="cl-df64853a">Adjective</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-df694d72"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d73"><p class="cl-df692c70"><span class="cl-df648544">serious</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d74"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d75"><p class="cl-df692c70"><span class="cl-df648544">sure</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d72"><p class="cl-df692c70"><span class="cl-df648544">so</span></p></td><td class="cl-df694d73"><p class="cl-df692c70"><span class="cl-df648544">many</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d74"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d75"><p class="cl-df692c70"><span class="cl-df648544">many</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d72"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d73"><p class="cl-df692c70"><span class="cl-df648544">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d74"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d75"><p class="cl-df692c70"><span class="cl-df648544">much</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d72"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d73"><p class="cl-df692c70"><span class="cl-df648544">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d74"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d75"><p class="cl-df692c70"><span class="cl-df648544">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d72"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d73"><p class="cl-df692c70"><span class="cl-df648544">last</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df694d7c"><p class="cl-df692c70"><span class="cl-df648544">0</span></p></td><td class="cl-df694d7d"><p class="cl-df692c70"><span class="cl-df648544">nice</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="b89df935-f471-409c-9e68-bb9ffdf6d37b"></div>
+</style><div class="tabwid"><style>.cl-cdb778be{table-layout:auto;width:75%;}.cl-cdb3c2e6{font-family:'DejaVu Sans';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cdb3c2f0{font-family:'DejaVu Sans';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cdb3cf84{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cdb3e96a{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdb3e974{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdb3e975{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdb3e976{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdb3e97e{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdb3e97f{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdb3e988{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdb3e989{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-cdb778be'>
+<thead><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e989"><p class="cl-cdb3cf84"><span class="cl-cdb3c2e6">Amplifier</span></p></td><td class="cl-cdb3e988"><p class="cl-cdb3cf84"><span class="cl-cdb3c2e6">Adjective</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e974"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e96a"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">serious</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e97f"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e97e"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">sure</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e974"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">so</span></p></td><td class="cl-cdb3e96a"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">many</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e97f"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e97e"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">many</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e974"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e96a"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e97f"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e97e"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">much</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e974"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e96a"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e97f"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e97e"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e974"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e96a"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">last</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdb3e976"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">0</span></p></td><td class="cl-cdb3e975"><p class="cl-cdb3cf84"><span class="cl-cdb3c2f0">nice</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="e7d189a5-eb67-44e0-b3ea-866597ad7d16"></div>
 <script>
-var dest = document.getElementById("b89df935-f471-409c-9e68-bb9ffdf6d37b");
-var template = document.getElementById("4eb13f28-edf5-4a3d-a403-c2ed30ea5ef5");
+var dest = document.getElementById("e7d189a5-eb67-44e0-b3ea-866597ad7d16");
+var template = document.getElementById("5927cb55-ff86-4fe3-9119-fb957bfe8efc");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
 fantome.appendChild(templateContent);
 </script>
 
-<p>For this tutorial, we remove adjectives that were not amplified (as
-well as adjectives modified by <em>much</em> or <em>many</em>) and
-collapse all adjectives that occur less than 10 times into a bin
-category (<em>other</em>).</p>
+<p>For this tutorial, we remove adjectives that were not amplified (as well as adjectives modified by <em>much</em> or <em>many</em>) and collapse all adjectives that occur less than 10 times into a bin category (<em>other</em>).</p>
 <pre class="r"><code># simplify data
 vsmdata_simp &lt;- vsmdata %&gt;%
   # remove non-amplifier adjectives
@@ -657,7 +556,7 @@ vsmdata_simp &lt;- vsmdata %&gt;%
   dplyr::mutate(Adjective = ifelse(AdjFreq &gt; 10, Adjective, &quot;other&quot;)) %&gt;%
   dplyr::filter(Adjective != &quot;other&quot;) %&gt;%
   dplyr::select(-AdjFreq)</code></pre>
-<template id="021b1ca0-9bf6-4e43-a76f-e34c2600c8d8"><style>
+<template id="05e0f742-63ba-41cd-88f9-dee422840cd3"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -665,11 +564,10 @@ vsmdata_simp &lt;- vsmdata %&gt;%
   margin-left:auto;
   margin-right:auto;
   border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
   border-color: transparent;
-  caption-side: top;
-}
-.tabwid-caption-bottom table{
-  caption-side: bottom;
 }
 .tabwid_left table{
   margin-left:0;
@@ -677,7 +575,7 @@ vsmdata_simp &lt;- vsmdata %&gt;%
 .tabwid_right table{
   margin-right:0;
 }
-.tabwid td, .tabwid th {
+.tabwid td {
     padding: 0;
 }
 .tabwid a {
@@ -695,19 +593,25 @@ background-color: transparent;
 .katex-display {
     margin: 0 0 !important;
 }
-</style><div class="tabwid"><style>.cl-dfa59980{table-layout:auto;width:75%;}.cl-df992100{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-df99210a{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-df9de488{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-df9e0602{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df9e0603{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df9e060c{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df9e060d{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df9e060e{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df9e060f{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df9e0616{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df9e0617{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-dfa59980'><thead><tr style="overflow-wrap:break-word;"><th class="cl-df9e0602"><p class="cl-df9de488"><span class="cl-df992100">Amplifier</span></p></th><th class="cl-df9e0603"><p class="cl-df9de488"><span class="cl-df992100">Adjective</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-df9e060c"><p class="cl-df9de488"><span class="cl-df99210a">very</span></p></td><td class="cl-df9e060d"><p class="cl-df9de488"><span class="cl-df99210a">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e060e"><p class="cl-df9de488"><span class="cl-df99210a">really</span></p></td><td class="cl-df9e060f"><p class="cl-df9de488"><span class="cl-df99210a">nice</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e060c"><p class="cl-df9de488"><span class="cl-df99210a">really</span></p></td><td class="cl-df9e060d"><p class="cl-df9de488"><span class="cl-df99210a">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e060e"><p class="cl-df9de488"><span class="cl-df99210a">really</span></p></td><td class="cl-df9e060f"><p class="cl-df9de488"><span class="cl-df99210a">bad</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e060c"><p class="cl-df9de488"><span class="cl-df99210a">very</span></p></td><td class="cl-df9e060d"><p class="cl-df9de488"><span class="cl-df99210a">nice</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e060e"><p class="cl-df9de488"><span class="cl-df99210a">really</span></p></td><td class="cl-df9e060f"><p class="cl-df9de488"><span class="cl-df99210a">nice</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e060c"><p class="cl-df9de488"><span class="cl-df99210a">very</span></p></td><td class="cl-df9e060d"><p class="cl-df9de488"><span class="cl-df99210a">hard</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e060e"><p class="cl-df9de488"><span class="cl-df99210a">bloody</span></p></td><td class="cl-df9e060f"><p class="cl-df9de488"><span class="cl-df99210a">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e060c"><p class="cl-df9de488"><span class="cl-df99210a">really</span></p></td><td class="cl-df9e060d"><p class="cl-df9de488"><span class="cl-df99210a">nice</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-df9e0616"><p class="cl-df9de488"><span class="cl-df99210a">really</span></p></td><td class="cl-df9e0617"><p class="cl-df9de488"><span class="cl-df99210a">good</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="db3c5b5a-d5ca-4f2a-b9d3-66ca76ef3f7e"></div>
+</style><div class="tabwid"><style>.cl-cdc9039a{table-layout:auto;width:75%;}.cl-cdc3468a{font-family:'DejaVu Sans';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cdc34694{font-family:'DejaVu Sans';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cdc34ed2{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cdc363b8{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdc363b9{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdc363c2{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdc363c3{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdc363c4{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdc363c5{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdc363cc{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cdc363cd{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-cdc9039a'>
+<thead><tr style="overflow-wrap:break-word;"><td class="cl-cdc363cd"><p class="cl-cdc34ed2"><span class="cl-cdc3468a">Amplifier</span></p></td><td class="cl-cdc363cc"><p class="cl-cdc34ed2"><span class="cl-cdc3468a">Adjective</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cdc363b9"><p class="cl-cdc34ed2"><span class="cl-cdc34694">very</span></p></td><td class="cl-cdc363b8"><p class="cl-cdc34ed2"><span class="cl-cdc34694">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363c5"><p class="cl-cdc34ed2"><span class="cl-cdc34694">really</span></p></td><td class="cl-cdc363c4"><p class="cl-cdc34ed2"><span class="cl-cdc34694">nice</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363b9"><p class="cl-cdc34ed2"><span class="cl-cdc34694">really</span></p></td><td class="cl-cdc363b8"><p class="cl-cdc34ed2"><span class="cl-cdc34694">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363c5"><p class="cl-cdc34ed2"><span class="cl-cdc34694">really</span></p></td><td class="cl-cdc363c4"><p class="cl-cdc34ed2"><span class="cl-cdc34694">bad</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363b9"><p class="cl-cdc34ed2"><span class="cl-cdc34694">very</span></p></td><td class="cl-cdc363b8"><p class="cl-cdc34ed2"><span class="cl-cdc34694">nice</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363c5"><p class="cl-cdc34ed2"><span class="cl-cdc34694">really</span></p></td><td class="cl-cdc363c4"><p class="cl-cdc34ed2"><span class="cl-cdc34694">nice</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363b9"><p class="cl-cdc34ed2"><span class="cl-cdc34694">very</span></p></td><td class="cl-cdc363b8"><p class="cl-cdc34ed2"><span class="cl-cdc34694">hard</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363c5"><p class="cl-cdc34ed2"><span class="cl-cdc34694">bloody</span></p></td><td class="cl-cdc363c4"><p class="cl-cdc34ed2"><span class="cl-cdc34694">good</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363b9"><p class="cl-cdc34ed2"><span class="cl-cdc34694">really</span></p></td><td class="cl-cdc363b8"><p class="cl-cdc34ed2"><span class="cl-cdc34694">nice</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cdc363c3"><p class="cl-cdc34ed2"><span class="cl-cdc34694">really</span></p></td><td class="cl-cdc363c2"><p class="cl-cdc34ed2"><span class="cl-cdc34694">good</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="a0d54b5c-0e09-45ae-bc3f-98220fa2fc03"></div>
 <script>
-var dest = document.getElementById("db3c5b5a-d5ca-4f2a-b9d3-66ca76ef3f7e");
-var template = document.getElementById("021b1ca0-9bf6-4e43-a76f-e34c2600c8d8");
+var dest = document.getElementById("a0d54b5c-0e09-45ae-bc3f-98220fa2fc03");
+var template = document.getElementById("05e0f742-63ba-41cd-88f9-dee422840cd3");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
 fantome.appendChild(templateContent);
 </script>
 
-<p>In a next step, we create a matrix from this data frame which maps
-how often a given amplifier co-occurred with a given adjective. In text
-mining, this format is called a text-document matrix or tdm.</p>
+<p>In a next step, we create a matrix from this data frame which maps how often a given amplifier co-occurred with a given adjective. In text mining, this format is called a text-document matrix or tdm.</p>
 <pre class="r"><code># tabulate data (create term-document matrix)
 tdm &lt;- ftable(vsmdata_simp$Adjective, vsmdata_simp$Amplifier)
 # extract amplifiers and adjectives 
@@ -724,13 +628,7 @@ tdm[1:5, 1:5]</code></pre>
 ## clear              1      0          0          0         0
 ## different          0      0          4          0         0
 ## difficult          0      0          0          1         3</code></pre>
-<p>Now that we have a term document matrix, we want to remove adjectives
-that were never amplified. Note however that if we were interested in
-classifying adjectives (rather than amplifiers) according to their
-co-occurrence with amplifiers, we would, of course, not do this, as not
-being amplified would be a relevant feature for adjectives. But since we
-are interested in classifying amplifiers, not amplified adjectives do
-not have any information value.</p>
+<p>Now that we have a term document matrix, we want to remove adjectives that were never amplified. Note however that if we were interested in classifying adjectives (rather than amplifiers) according to their co-occurrence with amplifiers, we would, of course, not do this, as not being amplified would be a relevant feature for adjectives. But since we are interested in classifying amplifiers, not amplified adjectives do not have any information value.</p>
 <pre class="r"><code># convert frequencies greater than 1 into 1
 tdm &lt;- t(apply(tdm, 1, function(x){ifelse(x &gt; 1, 1, x)}))
 # remove adjectives that we never amplified
@@ -744,22 +642,10 @@ tdm[1:5, 1:5]</code></pre>
 ##   clear              1      0          0          0         0
 ##   different          0      0          1          0         0
 ##   difficult          0      0          0          1         1</code></pre>
-<p>In a next step, we extract the expected values of the co-occurrences
-if the amplifiers were distributed homogeneously and calculate the
-<em>Pointwise Mutual Information</em> (PMI) score and use that to then
-calculate the <em>Positive Pointwise Mutual Information</em> (PPMI)
-scores. According to <span class="citation">Levshina (<a
-href="#ref-levshina2015linguistics"
-role="doc-biblioref">2015</a>)</span> 327 - referring to <span
-class="citation">Bullinaria and Levy (<a
-href="#ref-bullinaria2007extracting"
-role="doc-biblioref">2007</a>)</span> - PPMI perform better than PMI as
-negative values are replaced with zeros. In a next step, we calculate
-the cosine similarity which will for the bases for the subsequent
-clustering.</p>
+<p>In a next step, we extract the expected values of the co-occurrences if the amplifiers were distributed homogeneously and calculate the <em>Pointwise Mutual Information</em> (PMI) score and use that to then calculate the <em>Positive Pointwise Mutual Information</em> (PPMI) scores. According to <span class="citation">Levshina (<a href="#ref-levshina2015linguistics" role="doc-biblioref">2015</a>)</span> 327 - referring to <span class="citation">Bullinaria and Levy (<a href="#ref-bullinaria2007extracting" role="doc-biblioref">2007</a>)</span> - PPMI perform better than PMI as negative values are replaced with zeros. In a next step, we calculate the cosine similarity which will for the bases for the subsequent clustering.</p>
 <pre class="r"><code># compute expected values
 tdm.exp &lt;- chisq.test(tdm)$expected</code></pre>
-<pre><code>## Warning in chisq.test(tdm): Chi-Quadrat-Approximation kann inkorrekt sein</code></pre>
+<pre><code>## Warning in chisq.test(tdm): Chi-squared approximation may be incorrect</code></pre>
 <pre class="r"><code># calculate PMI and PPMI
 PMI &lt;- log2(tdm/tdm.exp)
 PPMI &lt;- ifelse(PMI &lt; 0, 0, PMI)
@@ -773,15 +659,7 @@ cosinesimilarity[1:5, 1:5]</code></pre>
 ## completely          0      0          1  0.0000000 0.0000000
 ## enormously          0      0          0  1.0000000 0.6628518
 ## extremely           0      0          0  0.6628518 1.0000000</code></pre>
-<p>As we have now obtained a similarity measure, we can go ahead and
-perform a cluster analysis on these similarity values. However, as we
-have to extract the maximum values in the similarity matrix that is not
-1 as we will use this to create a distance matrix. While we could also
-have simply subtracted the cosine similarity values from 1 to convert
-the similarity matrix into a distance matrix, we follow the procedure
-proposed by <span class="citation">Levshina (<a
-href="#ref-levshina2015linguistics"
-role="doc-biblioref">2015</a>)</span>.</p>
+<p>As we have now obtained a similarity measure, we can go ahead and perform a cluster analysis on these similarity values. However, as we have to extract the maximum values in the similarity matrix that is not 1 as we will use this to create a distance matrix. While we could also have simply subtracted the cosine similarity values from 1 to convert the similarity matrix into a distance matrix, we follow the procedure proposed by <span class="citation">Levshina (<a href="#ref-levshina2015linguistics" role="doc-biblioref">2015</a>)</span>.</p>
 <pre class="r"><code># find max value that is not 1
 cosinesimilarity.test &lt;- apply(cosinesimilarity, 1, function(x){
   x &lt;- ifelse(x == 1, 0, x) } )
@@ -789,11 +667,7 @@ maxval &lt;- max(cosinesimilarity.test)
 # create distance matrix
 amplifier.dist &lt;- 1 - (cosinesimilarity/maxval)
 clustd &lt;- as.dist(amplifier.dist)</code></pre>
-<p>In a next step, we want to determine the optimal number of clusters.
-This has two reasons: firstly, we need to establish that we have reason
-to assume that the data is not homogeneous (this would occur if the
-optimal number of clusters were 1), and, secondly, we want check how
-many meaningful clusters there are in our data.</p>
+<p>In a next step, we want to determine the optimal number of clusters. This has two reasons: firstly, we need to establish that we have reason to assume that the data is not homogeneous (this would occur if the optimal number of clusters were 1), and, secondly, we want check how many meaningful clusters there are in our data.</p>
 <pre class="r"><code># find optimal number of clusters
 asw &lt;- as.vector(unlist(sapply(2:ncol(tdm)-1, function(x) pam(clustd, k = x)$silinfo$avg.width)))
 # determine the optimal number of clusters (max width is optimal)
@@ -806,8 +680,7 @@ amplifier.clusters$clustering</code></pre>
 ##            1            1            2            3            3            3 
 ##       pretty         real       really           so      totally         very 
 ##            2            1            2            2            2            2</code></pre>
-<p>In a next step, we visualize the results of the semantic vector space
-model as a dendrogram.</p>
+<p>In a next step, we visualize the results of the semantic vector space model as a dendrogram.</p>
 <pre class="r"><code># create cluster object
 cd &lt;- hclust(clustd, method=&quot;ward.D&quot;)    
 # plot cluster object
@@ -823,35 +696,13 @@ rect.hclust(cd, k = optclust, border = &quot;gray60&quot;)</code></pre>
 </li>
 <li>all other amplifiers.</li>
 </ul>
-<p>form clusters and are thus more similar in their collocational
-profile to each other compared to amplifiers in different clusters.
-Also, this suggests that amplifiers in the same cluster are more
-interchangable compared with amplifiers in different clusters.</p>
-<p>It is important to note though that the data set is of rather
-moderate size which means that differences are unlikely to be detected
-due to the relative rarity of the amplifier (which is the reason why
-there is one umbrella cluster). Also, the amplifiers <em>very</em>,
-<em>so</em>, and <em>really</em> form a cluster together probably due to
-the fact that <em>really</em>, <em>very</em>, and <em>so</em> are the
-most frequent “variants” and because they co-occur with the most variety
-of adjectives. The results can be interpreted to suggest that
-<em>really</em>, <em>so</em>, and <em>very</em> are “default” amplifiers
-that lack distinct semantic profiles.</p>
-<p>There are many more useful methods for classifying and grouping data
-and the <a
-href="https://gederajeg.github.io/vector_space_model_indonesian/">tutorial
-by Gede Primahadi Wijaya Rajeg, Karlina Denistia, and Simon Musgrave</a>
-<span class="citation">(<a href="#ref-rajeg2020semvec"
-role="doc-biblioref">Rajeg, Denistia, and Musgrave 2019</a>)</span>
-highly recommended to get a better understanding of SVM but this should
-suffice to get you started.</p>
+<p>form clusters and are thus more similar in their collocational profile to each other compared to amplifiers in different clusters. Also, this suggests that amplifiers in the same cluster are more interchangable compared with amplifiers in different clusters.</p>
+<p>It is important to note though that the data set is of rather moderate size which means that differences are unlikely to be detected due to the relative rarity of the amplifier (which is the reason why there is one umbrella cluster). Also, the amplifiers <em>very</em>, <em>so</em>, and <em>really</em> form a cluster together probably due to the fact that <em>really</em>, <em>very</em>, and <em>so</em> are the most frequent “variants” and because they co-occur with the most variety of adjectives. The results can be interpreted to suggest that <em>really</em>, <em>so</em>, and <em>very</em> are “default” amplifiers that lack distinct semantic profiles.</p>
+<p>There are many more useful methods for classifying and grouping data and the <a href="https://gederajeg.github.io/vector_space_model_indonesian/">tutorial by Gede Primahadi Wijaya Rajeg, Karlina Denistia, and Simon Musgrave</a> <span class="citation">(Rajeg, Denistia, and Musgrave <a href="#ref-rajeg2020semvec" role="doc-biblioref">2019</a>)</span> highly recommended to get a better understanding of SVM but this should suffice to get you started.</p>
 </div>
-<div id="citation-session-info" class="section level1 unnumbered">
-<h1 class="unnumbered">Citation &amp; Session Info</h1>
-<p>Schweinberger, Martin. 2023. <em>Semantic Vector Space Models in
-R</em>. Brisbane: The University of Queensland. url: <a
-href="https://ladal.edu.au/svm.html"
-class="uri">https://ladal.edu.au/svm.html</a> (Version 2023.02.16).</p>
+<div id="citation-session-info" class="section level1 unnumbered" number="">
+<h1 class="unnumbered" number="">Citation &amp; Session Info</h1>
+<p>Schweinberger, Martin. 2023. <em>Semantic Vector Space Models in R</em>. Brisbane: The University of Queensland. url: <a href="https://ladal.edu.au/svm.html" class="uri">https://ladal.edu.au/svm.html</a> (Version 2023.02.16).</p>
 <pre><code>@manual{schweinberger2023svm,
   author = {Schweinberger, Martin},
   title = {Semantic Vector Space Models in R},
@@ -862,77 +713,68 @@ class="uri">https://ladal.edu.au/svm.html</a> (Version 2023.02.16).</p>
   edition = {2023.02.16}
 }</code></pre>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 4.2.1 RC (2022-06-17 r82510 ucrt)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 19045)
+<pre><code>## R version 4.1.2 (2021-11-01)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 22.04.2 LTS
 ## 
 ## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3
+## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3
 ## 
 ## locale:
-## [1] LC_COLLATE=German_Germany.utf8  LC_CTYPE=German_Germany.utf8   
-## [3] LC_MONETARY=German_Germany.utf8 LC_NUMERIC=C                   
-## [5] LC_TIME=German_Germany.utf8    
+##  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+##  [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8   
+##  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] stats     graphics  grDevices datasets  utils     methods   base     
 ## 
 ## other attached packages:
-## [1] flextable_0.8.5 cluster_2.1.4   tm_0.7-11       NLP_0.2-1      
-## [5] dplyr_1.1.0     coop_0.6-3     
+## [1] flextable_0.7.3 cluster_2.1.3   tm_0.7-8        NLP_0.2-1      
+## [5] dplyr_1.0.9     coop_0.6-3     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.2.0  xfun_0.37         bslib_0.4.2       slam_0.1-50      
-##  [5] vctrs_0.5.2       generics_0.1.3    htmltools_0.5.4   yaml_2.3.7       
-##  [9] base64enc_0.1-3   utf8_1.2.3        rlang_1.0.6       jquerylib_0.1.4  
-## [13] pillar_1.8.1      later_1.3.0       withr_2.5.0       glue_1.6.2       
-## [17] httpcode_0.3.0    gfonts_0.2.0      gdtools_0.3.0     uuid_1.1-0       
-## [21] lifecycle_1.0.3   zip_2.2.2         evaluate_0.20     memoise_2.0.1    
-## [25] knitr_1.42        fastmap_1.1.0     httpuv_1.6.8      parallel_4.2.1   
-## [29] curl_5.0.0        fansi_1.0.4       highr_0.10        Rcpp_1.0.9       
-## [33] xtable_1.8-4      openssl_2.0.5     promises_1.2.0.1  cachem_1.0.6     
-## [37] jsonlite_1.8.4    mime_0.12         systemfonts_1.0.4 askpass_1.1      
-## [41] digest_0.6.31     shiny_1.7.4       grid_4.2.1        cli_3.6.0        
-## [45] tools_4.2.1       magrittr_2.0.3    sass_0.4.5        tibble_3.1.8     
-## [49] crul_1.3          crayon_1.5.2      pkgconfig_2.0.3   ellipsis_0.3.2   
-## [53] data.table_1.14.6 xml2_1.3.3        rmarkdown_2.20    officer_0.5.2    
-## [57] rstudioapi_0.14   R6_2.5.1          compiler_4.2.1</code></pre>
+##  [1] zip_2.2.0         Rcpp_1.0.8.3      pillar_1.7.0      bslib_0.3.1      
+##  [5] compiler_4.1.2    jquerylib_0.1.4   highr_0.9         base64enc_0.1-3  
+##  [9] tools_4.1.2       uuid_1.1-0        digest_0.6.29     jsonlite_1.8.0   
+## [13] evaluate_0.15     lifecycle_1.0.1   tibble_3.1.7      pkgconfig_2.0.3  
+## [17] rlang_1.0.4       cli_3.3.0         DBI_1.1.3         parallel_4.1.2   
+## [21] yaml_2.3.5        xfun_0.31         fastmap_1.1.0     officer_0.4.3    
+## [25] xml2_1.3.3        stringr_1.4.0     knitr_1.39        systemfonts_1.0.4
+## [29] gdtools_0.2.4     generics_0.1.3    vctrs_0.4.1       sass_0.4.1       
+## [33] tidyselect_1.1.2  data.table_1.14.2 glue_1.6.2        R6_2.5.1         
+## [37] fansi_1.0.3       rmarkdown_2.14    purrr_0.3.4       magrittr_2.0.3   
+## [41] htmltools_0.5.2   ellipsis_0.3.2    assertthat_0.2.1  renv_0.15.4      
+## [45] utf8_1.2.2        stringi_1.7.8     slam_0.1-50       crayon_1.5.1</code></pre>
 <hr />
 <p><a href="#introduction">Back to top</a></p>
 <p><a href="https://ladal.edu.au">Back to HOME</a></p>
 <hr />
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="unnumbered">References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-bullinaria2007extracting" class="csl-entry">
-Bullinaria, J. A., and J. P. Levy. 2007. <span>“Extracting Semantic
-Representations from Word Co-Occurrence Statistics: A Computational
-Study.”</span> <em>Behavior Research Methods</em> 39: 510–26.
+<div id="references" class="section level1 unnumbered" number="">
+<h1 class="unnumbered" number="">References</h1>
+<div id="refs" class="references hanging-indent">
+<div id="ref-bullinaria2007extracting">
+<p>Bullinaria, J. A., and J. P. Levy. 2007. “Extracting Semantic Representations from Word Co-Occurrence Statistics: A Computational Study.” <em>Behavior Research Methods</em> 39: 510–26.</p>
 </div>
-<div id="ref-levshina2015linguistics" class="csl-entry">
-Levshina, Natalia. 2015. <em>How to Do Linguistics with r: Data
-Exploration and Statistical Analysis</em>. Amsterdam: John Benjamins
-Publishing Company.
+<div id="ref-levshina2015linguistics">
+<p>Levshina, Natalia. 2015. <em>How to Do Linguistics with R: Data Exploration and Statistical Analysis</em>. Amsterdam: John Benjamins Publishing Company.</p>
 </div>
-<div id="ref-rajeg2020semvec" class="csl-entry">
-Rajeg, Gede Primahadi Wijaya, Karlina Denistia, and Simon Musgrave.
-2019. <span>“R Markdown Notebook for Vector Space Model and the Usage
-Patterns of Indonesian Denominal Verbs.”</span> <a
-href="https://doi.org/10.6084/m9.figshare.9970205.v1">https://doi.org/10.6084/m9.figshare.9970205.v1</a>.
+<div id="ref-rajeg2020semvec">
+<p>Rajeg, Gede Primahadi Wijaya, Karlina Denistia, and Simon Musgrave. 2019. “R Markdown Notebook for Vector Space Model and the Usage Patterns of Indonesian Denominal Verbs.” <a href="https://doi.org/10.6084/m9.figshare.9970205.v1">https://doi.org/10.6084/m9.figshare.9970205.v1</a>.</p>
 </div>
-<div id="ref-coop" class="csl-entry">
-Schmidt, Drew, and Christian Heckendorf. 2019. <em>Coop: Co-Operation:
-Fast Covariance, Correlation, and CosineSimilarity Operations</em>. <a
-href="https://CRAN.R-project.org/package=coop">https://CRAN.R-project.org/package=coop</a>.
+<div id="ref-coop">
+<p>Schmidt, Drew, and Christian Heckendorf. 2019. <em>Coop: Co-Operation: Fast Covariance, Correlation, and Cosinesimilarity Operations</em>. <a href="https://CRAN.R-project.org/package=coop">https://CRAN.R-project.org/package=coop</a>.</p>
 </div>
 </div>
 </div>
-<div class="footnotes footnotes-end-of-document">
+<div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>I am indebted to Paul Warren who kindly pointed out some
-errors in a previous version of this tutorial.<a href="#fnref1"
-class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>I am indebted to Paul Warren who kindly pointed out some errors in a previous version of this tutorial.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
