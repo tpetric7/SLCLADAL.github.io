@@ -1,7 +1,7 @@
 ---
 title: "Cluster and Correspondence Analysis in R"
 author: "Martin Schweinberger"
-date: "`r format(Sys.time(), '%Y-%m-%d')`"
+date: "31 May, 2023"
 output:
   bookdown::html_document2
 bibliography: bibliography.bib
@@ -24,12 +24,23 @@ This tutorial is aimed at intermediate users of R with the aim of showcasing how
 <div class="warning" style='padding:0.1em; background-color:#f2f2f2; color:#51247a'>
 <span>
 <p style='margin-top:1em; text-align:center'>
-The entire R Notebook for the tutorial can be downloaded [**here**](https://slcladal.github.io/content/clust.Rmd).  If you want to render the R Notebook on your machine, i.e. knitting the document to html or a pdf, you need to make sure that you have R and RStudio installed and you also need to download the [**bibliography file**](https://slcladal.github.io/content/bibliography.bib) and store it in the same folder where you store the Rmd file.</p>
-<p style='margin-left:1em;'>
-</p></span>
+To be able to follow this tutorial, we suggest you check out and familiarize yourself with the content of the following **R Basics** and **Data Science Basics** tutorials:<br>
+</p>
+<p style='margin-top:1em; text-align:left'>
+<ul>
+  <li>[Getting started with R](https://ladal.edu.au/intror.html) </li>
+  <li>[Basic Concepts in Quantitative Research](https://ladal.edu.au/basicquant.html) </li>
+  <li>[Loading, saving, and generating data in R](https://ladal.edu.au/load.html) </li>
+  <li>[Handling tables in R](https://ladal.edu.au/table.html) </li>
+</ul>
+</p>
+<p style='margin-top:1em; text-align:center'>
+Click [**here**](https://ladal.edu.au/content/clust.Rmd)^[If you want to render the R Notebook on your machine, i.e. knitting the document to html or a pdf, you need to make sure that you have R and RStudio installed and you also need to download the [**bibliography file**](https://ladal.edu.au/content/bibliography.bib) and store it in the same folder where you store the Rmd file.] to download the **entire R Notebook** for this tutorial.
+</p>
 </div>
 
 <br>
+
 
 A more elaborate and highly recommendable introduction to cluster analysis is @kassambara2017practical. Other very useful resources are, e.g.,  @king2015cluster; @kettenring2006practice; @romesburg2004cluster; and @blashfield1988methods.
 
@@ -979,17 +990,17 @@ text(x, y, labels = row.names(clus), cex=.7)
 
 # Citation & Session Info {-}
 
-Schweinberger, Martin. `r format(Sys.time(), '%Y')`. *Cluster and Correspondence Analysis in R*. Brisbane: The University of Queensland. url: https://slcladal.github.io/clust.html (Version `r format(Sys.time(), '%Y.%m.%d')`).
+Schweinberger, Martin. 2023. *Cluster and Correspondence Analysis in R*. Brisbane: The University of Queensland. url: https://ladal.edu.au/clust.html (Version 2023.05.31).
 
 ```
-@manual{schweinberger`r format(Sys.time(), '%Y')`clust,
+@manual{schweinberger2023clust,
   author = {Schweinberger, Martin},
   title = {Cluster and Correspondence Analysis in R},
-  note = {https://slcladal.github.io/clust.html},
-  year = {`r format(Sys.time(), '%Y')`},
+  note = {https://ladal.edu.au/clust.html},
+  year = {2023},
   organization = "The University of Queensland, Australia. School of Languages and Cultures},
   address = {Brisbane},
-  edition = {`r format(Sys.time(), '%Y.%m.%d')`}
+  edition = {2023.05.31}
 }
 ```
 
@@ -1003,7 +1014,7 @@ sessionInfo()
 
 [Back to top](#introduction)
 
-[Back to HOME](https://slcladal.github.io/index.html)
+[Back to HOME](https://ladal.edu.au)
 
 ***
 
