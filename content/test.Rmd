@@ -1,0 +1,342 @@
+---
+title: "Testing"
+output: html_notebook
+---
+
+activate packages
+
+```{r}
+library(dplyr)
+```
+
+
+generate data
+
+
+```{r}
+obs <-matrix(c(50, 350, 950, 9998650), nrow = 2, byrow = T)
+obs
+```
+
+# rapid growth
+
+generate data frame
+
+```{r}
+odf <- data.frame(243, 2463, 12545, 98347067) %>%
+  dplyr::rename(O11 = 1,
+                O12 = 2,
+                O21 = 3,
+                O22 = 4) %>%
+  dplyr::mutate(R1 = O11 + O12,
+                R2 = O21 + O22,
+                C1 = O11 + O21,
+                C2 = O12 + O22,
+                N = O11 + O12 + O21 + O22, 
+                w1 = "rapid",
+                w2 = "growth") %>%
+  dplyr::relocate(w1, .before = O11) %>%
+  dplyr::relocate(w2, .before = O11)
+# inspect
+odf
+```
+
+add expected
+
+```{r}
+# add expected
+odf %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(E11 = R1 * C1 / N, 
+                E12 = R1 * C2 / N,
+                E21 = R2 * C1 / N, 
+                E22 = R2 * C2 / N)  -> cdf
+# inspect
+cdf
+```
+
+add biased cells
+
+```{r}
+odf %>%
+  dplyr::mutate(# bias towards top left
+    btl_O11 = R1,
+    btl_O21 = C1-R1,
+    btl_O12 = 0,
+    btl_O22 = C2,
+    # bias towards top right
+    btr_O11 = 0, 
+    btr_O21 = R1,
+    btr_O12 = C1,
+    btr_O22 = C2-R1) -> gdf
+# inspect
+gdf
+    
+```
+
+add upp and low
+
+```{r}
+gdf %>%
+  dplyr::mutate(upp = btl_O11/R1,
+                low = btr_O11/R1,
+                op = O11/R1) %>%
+  dplyr::mutate(AM = op) -> gdf
+# inspect
+gdf
+```
+
+# rapid spread
+
+generate data frame
+
+```{r}
+odf <- data.frame(16, 2690, 1674, 98357938) %>%
+  dplyr::rename(O11 = 1,
+                O12 = 2,
+                O21 = 3,
+                O22 = 4) %>%
+  dplyr::mutate(R1 = O11 + O12,
+                R2 = O21 + O22,
+                C1 = O11 + O21,
+                C2 = O12 + O22,
+                N = O11 + O12 + O21 + O22, 
+                w1 = "rapid",
+                w2 = "spread") %>%
+  dplyr::relocate(w1, .before = O11) %>%
+  dplyr::relocate(w2, .before = O11) %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(E11 = R1 * C1 / N, 
+                E12 = R1 * C2 / N,
+                E21 = R2 * C1 / N, 
+                E22 = R2 * C2 / N)  -> cdf
+# inspect
+cdf
+```
+
+add biased cells
+
+
+
+rapid spread
+
+```{r}
+odf %>%
+  dplyr::mutate(# bias towards top left
+    btl_O12 = R1-C1,
+    btl_O11 = R1-btl_O12,
+    btl_O21 = C1-btl_O11,
+    btl_O22 = C2-btl_O12,
+    # bias towards top right
+    btr_O11 = 0, 
+    btr_O21 = R1,
+    btr_O12 = C1,
+    btr_O22 = C2-R1) -> gdf
+# inspect
+gdf
+    
+```
+
+add upp and low
+
+```{r}
+gdf %>%
+  dplyr::mutate(upp = btl_O11/R1,
+                low = btr_O11/R1,
+                op = O11/R1) %>%
+  dplyr::mutate(AM = op / upp) -> gdf
+# inspect
+gdf
+```
+
+# test
+
+
+generate data frame
+
+```{r}
+odf <- data.frame(1, 2661, 3582, 98356074) %>%
+  dplyr::rename(O11 = 1,
+                O12 = 2,
+                O21 = 3,
+                O22 = 4) %>%
+  dplyr::mutate(R1 = O11 + O12,
+                R2 = O21 + O22,
+                C1 = O11 + O21,
+                C2 = O12 + O22,
+                N = O11 + O12 + O21 + O22, 
+                w1 = "rapid",
+                w2 = "spread") %>%
+  dplyr::relocate(w1, .before = O11) %>%
+  dplyr::relocate(w2, .before = O11) %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(E11 = R1 * C1 / N, 
+                E12 = R1 * C2 / N,
+                E21 = R2 * C1 / N, 
+                E22 = R2 * C2 / N)  -> cdf
+# inspect
+cdf
+```
+
+add biased cells
+
+**new**
+
+```{r}
+odf %>%
+  dplyr::mutate(# bias towards top left
+    btl_O12 = ifelse(C1 > R1, 0, R1-C1),
+    btl_O11 = ifelse(C1 > R1, R1, R1-btl_O12),
+    btl_O21 = ifelse(C1 > R1, C1-R1, C1-btl_O11),
+    btl_O22 = ifelse(C1 > R1, C2, C2-btl_O12),
+    # bias towards top right
+    btr_O11 = 0, 
+    btr_O21 = R1,
+    btr_O12 = C1,
+    btr_O22 = C2-R1) %>%
+  dplyr::mutate(upp = btl_O11/R1,
+                low = btr_O11/R1,
+                op = O11/R1) %>%
+  dplyr::mutate(AM = op / upp) %>%
+  # remove superfluous columns
+  dplyr::select(-btr_O21, -btr_O12, -btr_O22, -btl_O12, -btl_O11, -btl_O21, -btl_O22, -btr_O11) -> gdf
+# inspect
+gdf
+```
+
+add association meaures
+
+```{r}
+gdf %>%
+# calculate fishers' exact test
+    dplyr::mutate(p = as.vector(unlist(fisher.test(matrix(c(O11, O12, O21, O22), 
+                                                        ncol = 2, byrow = T))[1]))) %>%
+
+    # extract x2 statistics
+    dplyr::mutate(X2 = (O11-E11)^2/E11 + (O12-E12)^2/E12 + (O21-E21)^2/E21 + (O22-E22)^2/E22) %>%
+    
+    # extract association measures
+    dplyr::mutate(phi = sqrt((X2 / N)),
+                  Dice = (2 * O11) / (R1 + C1),
+                  LogDice = log((2 * O11) / (R1 + C1)),
+                  MI = log2(O11 / E11),
+                  MS = min((O11/C1), (O11/R1)),
+                  t.score = (O11 - E11) / sqrt(O11),
+                  z.score = (O11 - E11) / sqrt(E11),
+                  PMI = log2( (O11 / N) / ((O11+O12) / N) * 
+                                ((O11+O21) / N) ),
+                  DeltaP12 = (O11 / (O11 + O12)) - (O21 / (O21 + O22)),
+                  DeltaP21 =  (O11 / (O11 + O21)) - (O21 / (O12 + O22)),
+                  DP = (O11 / R1) - (O21 / R2),
+                  LogOddsRatio = log(((O11 + 0.5) * (O22 + 0.5))  / ( (O12 + 0.5) * (O21 + 0.5) )),
+                  # calculate LL aka G2
+                  G2 = 2 * (O11 * log(O11 / E11) + O12 * log(O12 / E12) + O21 * log(O21 / E21) + O22 * log(O22 / E22))) -> adf
+# inspect
+adf
+    
+```
+
+
+# Keyness
+
+
+```{r}
+#install.packages("devtools")
+devtools::install_github("amacanovic/KeynessMeasures")
+```
+
+```{r}
+library(KeynessMeasures)
+```
+
+
+```{r}
+# load data
+text1 <- base::readRDS(url("https://slcladal.github.io/data/orwell.rda", "rb")) %>%
+  paste0(collapse = " ")
+text2 <- base::readRDS(url("https://slcladal.github.io/data/melville.rda", "rb"))  %>%
+  paste0(collapse = " ")
+```
+```{r}
+
+```
+
+After loading the two texts, we create a frequency table of first text.
+
+```{r}
+text1_words <- text1 %>%
+  # remove non-word characters
+  stringr::str_remove_all("[^[:alpha:] ]") %>%
+  # convert to lower
+  tolower() %>%
+  # tokenize the corpus files
+  quanteda::tokens(remove_punct = T, 
+                   remove_symbols = T,
+                   remove_numbers = T) %>%
+  # unlist the tokens to create a data frame
+  unlist() %>%
+  as.data.frame() %>%
+  # rename the column to 'token'
+  dplyr::rename(token = 1) %>%
+  # group by 'token' and count the occurrences
+  dplyr::group_by(token) %>%
+  dplyr::summarise(n = n()) %>%
+  # add column stating where the frequency list is 'from'
+  dplyr::mutate(type = "text1")
+```
+
+Now, we create a frequency table of second text.
+
+```{r}
+text2_words <- text2 %>%
+  # remove non-word characters
+  stringr::str_remove_all("[^[:alpha:] ]") %>%
+  # convert to lower
+  tolower() %>%
+  # tokenize the corpus files
+  quanteda::tokens(remove_punct = T, 
+                   remove_symbols = T,
+                   remove_numbers = T) %>%
+  # unlist the tokens to create a data frame
+  unlist() %>%
+  as.data.frame() %>%
+  # rename the column to 'token'
+  dplyr::rename(token = 1) %>%
+  # group by 'token' and count the occurrences
+  dplyr::group_by(token) %>%
+  dplyr::summarise(n = n()) %>%
+  # add column stating where the frequency list is 'from'
+  dplyr::mutate(type = "text2")
+```
+
+In a next step, we combine the tables.
+
+```{r}
+texts_df <- dplyr::left_join(text1_words, text2_words, by = c("token")) %>%
+  # rename columns and select relevant columns
+  dplyr::rename(text1 = n.x,
+                text2 = n.y) %>%
+  dplyr::select(-type.x, -type.y) %>%
+  # replace NA values with 0 in 'corpus' and 'kwic' columns
+  tidyr::replace_na(list(text1 = 0, text2 = 0)) %>%
+  dplyr::filter(text1 != 0 & text2 != 0) %>%
+  dplyr::filter(text1 != 0) %>%
+  as.data.frame()
+texts_df  %>%
+  head(10)
+```
+
+
+```{r}
+keys <- keyness_measure_calculator(df = texts_df, sort = "decreasing", sort_by = "odds_ratio")
+# 
+head(keys)
+```
+
+
+
+```{r}
+sessionInfo()
+```
+
+

@@ -15,7 +15,7 @@
 
 <title>Topic Modelling of Charles Dickens’ novels</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -31,12 +31,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="site_libs/tabwid-1.1.3/tabwid.js"></script>
 <link rel="stylesheet" href="styles.css" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -78,6 +80,7 @@ if (window.hljs) {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -368,62 +371,20 @@ div.tocify {
         <li>
   <a href="index.html">HOME</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    ABOUT LADAL
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="people.html">People | Collabs</a>
-    </li>
-    <li>
-      <a href="news.html">News</a>
-    </li>
-  </ul>
+<li>
+  <a href="about.html">ABOUT</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    EVENTS
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshops.html">Workshops</a>
-    </li>
-    <li>
-      <a href="compthinking.html">Computational Thinking in HASS</a>
-    </li>
-    <li>
-      <a href="webinars2022.html">LADAL Webinar Series 2022</a>
-    </li>
-    <li>
-      <a href="opening.html">LADAL Webinar Series 2021</a>
-    </li>
-    <li>
-      <a href="atapevents.html">ATAP Events</a>
-    </li>
-  </ul>
+<li>
+  <a href="events.html">EVENTS</a>
 </li>
 <li>
   <a href="tutorials.html">TUTORIALS</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    RESOURCES
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="links.html">Links</a>
-    </li>
-    <li>
-      <a href="base.html">Tutorial stylesheet</a>
-    </li>
-  </ul>
+<li>
+  <a href="tools.html">TOOLS</a>
+</li>
+<li>
+  <a href="resources.html">RESOURCES</a>
 </li>
 <li>
   <a href="contact.html">CONTACT</a>
@@ -450,13 +411,17 @@ novels</h1>
 
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>This tutorial shows how to perform topic modelling using R. The
-entire R markdown document for the tutorial can be downloaded <a
-href="%22https://slcladal.github.io/content/ATAP_TopMod_Markdown.Rmd%22">here</a>.
-The tutorial requires you to install and load a couple of packages (also
-called libraries) to analyze linguistic data. To help you, we directly
-include the commands to do so in the script and walk you through it step
-by step.</p>
+<p>This tutorial represents a case study on how to perform topic
+modelling on literary data using R. The entire R markdown document for
+the tutorial can be downloaded <a
+href="%22https://slcladal.github.io/content/topmod_dickens.Rmd%22">here</a>.
+The LADAL tutorial introducing topic modeling which provides more
+background is available <a
+href="https://ladal.edu.au/topic.html">here</a>.</p>
+<p>The tutorial requires you to install and load a couple of packages
+(in Python, these packages are also called libraries) to analyze
+linguistic data. To help you, we directly include the commands in the
+script and walk you through it step by step.</p>
 <div class="warning"
 style="padding:0.1em; background-color:rgba(215,209,204,.3); color:#51247a">
 <span>
@@ -491,7 +456,7 @@ href="https://ladal.edu.au/content/topmod_dickens.Rmd"><strong>here</strong></a>
 href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> to
 download the <strong>entire R Notebook</strong> for this
 tutorial.<br><br> <a
-href="https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks-environment/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252FSLCLADAL%252Finteractive-notebooks%26urlpath%3Dlab%252Ftree%252Finteractive-notebooks%252Fnotebooks%252F_dickens_cb.ipynb%26branch%3Dmain"><img
+href="https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks-environment/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252FSLCLADAL%252Finteractive-notebooks%26urlpath%3Dlab%252Ftree%252Finteractive-notebooks%252Fnotebooks%252Fdickens_cb.ipynb%26branch%3Dmain"><img
 src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a><br> Click
 <a
 href="https://mybinder.org/v2/gh/SLCLADAL/interactive-notebooks-environment/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252FSLCLADAL%252Finteractive-notebooks%26urlpath%3Dlab%252Ftree%252Finteractive-notebooks%252Fnotebooks%252F_dickens_cb.ipynb%26branch%3Dmain"><strong>here</strong></a>
@@ -508,21 +473,22 @@ change, and edit the code as well as to upload your own data. <br>
 <p>There is an incredible amount of text that has been archived all over
 the world. Probably, there is more text being produced on any given day
 than a single person can ever hope to read. What are linguists and other
-language-oriented scholars - be that from perspectives historical,
-literary, sociological or beyond - going to do with this embarrassment
-of riches? Change field, focus on a particular niche of language or
-begin using automated language methods, most likely. If you belong to
-the latter category, and have yet to acquaint yourself with topic
-modelling, welcome.</p>
+language-oriented scholars - be that from historical, literary,
+sociological or beyond perspectives - going to do with this
+embarrassment of riches? Change field, focus on a particular niche of
+language or begin using automated language methods, most likely. If you
+belong to the latter category, and have yet to acquaint yourself with
+topic modelling, welcome.</p>
 <p>So how does topic modelling help us get to grips with large
-quantities of texts (or the Great Unread, as Tangherlini and Leonard
-appropriately call it)? What it certainly does not do, is read or
-analyze a single sentence, let alone a corpus of texts for you. It is
-more useful to think of it as “a lens that allows researchers working on
-a problem to view a relevant textual corpus in a different light and at
-a different scale” <span class="citation">(<a
-href="#ref-mohr2013introduction">Mohr and Bogdanov 2013,
-560</a>)</span>.</p>
+quantities of texts (or the Great Unread, as <span
+class="citation">Tangherlini and Leonard (<a
+href="#ref-tangherlini2013trawling">2013</a>)</span> appropriately call
+it)? What it certainly does not do, is read or analyze a single
+sentence, let alone a corpus of texts for you. It is more useful to
+think of it as “a lens that allows researchers working on a problem to
+view a relevant textual corpus in a different light and at a different
+scale” <span class="citation">(<a href="#ref-mohr2013introduction">Mohr
+and Bogdanov 2013, 560</a>)</span>.</p>
 </div>
 <div id="basic-idea-of-topic-modelling" class="section level2"
 number="1.2">
@@ -587,7 +553,8 @@ therefore already familiar with <code>quanteda</code> and
 #install.packages(&quot;tm&quot;, repos = &quot;http://cran.us.r-project.org&quot;)
 #install.packages(&quot;udpipe&quot;, repos = &quot;http://cran.us.r-project.org&quot;)
 #install.packages(&quot;data.table&quot;, repos = &quot;http://cran.us.r-project.org&quot;)
-#install.packages(&quot;future.apply&quot;, repos = &quot;http://cran.us.r-project.org&quot;)</code></pre>
+#install.packages(&quot;future.apply&quot;, repos = &quot;http://cran.us.r-project.org&quot;)
+#install.packages(&quot;flextable&quot;, repos = &quot;http://cran.us.r-project.org&quot;)</code></pre>
 <p>This may take a minute or three. Installing packages is only
 necessary once, so if you are working with this script, or your own, you
 won’t need to run these installation commands more than once. In your
@@ -614,7 +581,8 @@ library(dplyr)
 library(tm)
 library(udpipe)
 library(data.table)
-library(future.apply)</code></pre>
+library(future.apply)
+library(flextable)</code></pre>
 </div>
 <div id="installing-a-language-model" class="section level2"
 number="1.5">
@@ -688,26 +656,26 @@ through one approach anyway.</p>
 Gutenberg:</p>
 <pre class="r"><code>dickens &lt;- gutenberg_works(author == &quot;Dickens, Charles&quot;)</code></pre>
 <p>The command accesses a table of Gutenberg work metadata, in this case
-specifically only for works authored by one <em>Dickens, Charles”. We
-save this table to a variable called, tellingly, </em>dickens”. Let’s
-take a look at it:</p>
+specifically only for works authored by one <em>Dickens, Charles</em>.
+We save this table to a variable called, tellingly, <em>dickens</em>.
+Let’s take a look at it:</p>
 <pre class="r"><code>dickens</code></pre>
-<pre><code>## # A tibble: 78 × 8
+<pre><code>## # A tibble: 54 × 8
 ##    gutenberg_id title    author gutenberg_author_id language gutenberg_bookshelf
 ##           &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;              
-##  1           46 &quot;A Chri… Dicke…                  37 en       Children&#39;s Literat…
-##  2           98 &quot;A Tale… Dicke…                  37 en       Historical Fiction 
-##  3          564 &quot;The My… Dicke…                  37 en       Mystery Fiction    
-##  4          580 &quot;The Pi… Dicke…                  37 en       Best Books Ever Li…
-##  5          588 &quot;Master… Dicke…                  37 en       &lt;NA&gt;               
-##  6          644 &quot;The Ha… Dicke…                  37 en       Christmas          
-##  7          650 &quot;Pictur… Dicke…                  37 en       &lt;NA&gt;               
-##  8          653 &quot;The Ch… Dicke…                  37 en       &lt;NA&gt;               
-##  9          675 &quot;Americ… Dicke…                  37 en       &lt;NA&gt;               
-## 10          676 &quot;The Ba… Dicke…                  37 en       Christmas          
-## # ℹ 68 more rows
+##  1           46 A Chris… Dicke…                  37 en       &quot;Children&#39;s Litera…
+##  2          564 The Mys… Dicke…                  37 en       &quot;Mystery Fiction&quot;  
+##  3          580 The Pic… Dicke…                  37 en       &quot;Best Books Ever L…
+##  4          699 A Child… Dicke…                  37 en       &quot;Children&#39;s Histor…
+##  5          700 The Old… Dicke…                  37 en       &quot;&quot;                 
+##  6          730 Oliver … Dicke…                  37 en       &quot;&quot;                 
+##  7          766 David C… Dicke…                  37 en       &quot;Harvard Classics&quot; 
+##  8          821 Dombey … Dicke…                  37 en       &quot;&quot;                 
+##  9          917 Barnaby… Dicke…                  37 en       &quot;Historical Fictio…
+## 10          963 Little … Dicke…                  37 en       &quot;&quot;                 
+## # ℹ 44 more rows
 ## # ℹ 2 more variables: rights &lt;chr&gt;, has_text &lt;lgl&gt;</code></pre>
-<p>At first glance, we can see that there are 74 texts by Dickens on
+<p>At first glance, we can see that there are 54 texts by Dickens on
 Gutenberg, and that to each of these texts there is some metadate like
 the Gutenberg ID, the language, the rights. This information is stored
 in a tibble, an object that does not cram the console with its entire
@@ -715,114 +683,91 @@ length, but actually stops itself at ten rows. While this is helpful in
 situations where you have millions of rows, here it is more hindrance
 than help - we see some of the texts we’re looking for, but not all of
 them. To display all of the rows and find our texts, we need the output
-to display all 74 rows. This can be achieved like so:</p>
-<pre class="r"><code>print(dickens, n=74)</code></pre>
-<pre><code>## # A tibble: 78 × 8
+to display all 54 rows. This can be achieved like so:</p>
+<pre class="r"><code>print(dickens, n=nrow(dickens))</code></pre>
+<pre><code>## # A tibble: 54 × 8
 ##    gutenberg_id title    author gutenberg_author_id language gutenberg_bookshelf
 ##           &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;              
-##  1           46 &quot;A Chri… Dicke…                  37 en       Children&#39;s Literat…
-##  2           98 &quot;A Tale… Dicke…                  37 en       Historical Fiction 
-##  3          564 &quot;The My… Dicke…                  37 en       Mystery Fiction    
-##  4          580 &quot;The Pi… Dicke…                  37 en       Best Books Ever Li…
-##  5          588 &quot;Master… Dicke…                  37 en       &lt;NA&gt;               
-##  6          644 &quot;The Ha… Dicke…                  37 en       Christmas          
-##  7          650 &quot;Pictur… Dicke…                  37 en       &lt;NA&gt;               
-##  8          653 &quot;The Ch… Dicke…                  37 en       &lt;NA&gt;               
-##  9          675 &quot;Americ… Dicke…                  37 en       &lt;NA&gt;               
-## 10          676 &quot;The Ba… Dicke…                  37 en       Christmas          
-## 11          678 &quot;The Cr… Dicke…                  37 en       Children&#39;s Literat…
-## 12          699 &quot;A Chil… Dicke…                  37 en       Children&#39;s History…
-## 13          700 &quot;The Ol… Dicke…                  37 en       &lt;NA&gt;               
-## 14          730 &quot;Oliver… Dicke…                  37 en       &lt;NA&gt;               
-## 15          766 &quot;David … Dicke…                  37 en       Harvard Classics   
-## 16          786 &quot;Hard T… Dicke…                  37 en       &lt;NA&gt;               
-## 17          807 &quot;Hunted… Dicke…                  37 en       Detective Fiction  
-## 18          809 &quot;Holida… Dicke…                  37 en       Children&#39;s Picture…
-## 19          810 &quot;George… Dicke…                  37 en       &lt;NA&gt;               
-## 20          821 &quot;Dombey… Dicke…                  37 en       &lt;NA&gt;               
-## 21          824 &quot;Speech… Dicke…                  37 en       &lt;NA&gt;               
-## 22          872 &quot;Reprin… Dicke…                  37 en       &lt;NA&gt;               
-## 23          882 &quot;Sketch… Dicke…                  37 en       &lt;NA&gt;               
-## 24          883 &quot;Our Mu… Dicke…                  37 en       &lt;NA&gt;               
-## 25          912 &quot;Mudfog… Dicke…                  37 en       &lt;NA&gt;               
-## 26          914 &quot;The Un… Dicke…                  37 en       &lt;NA&gt;               
-## 27          916 &quot;Sketch… Dicke…                  37 en       &lt;NA&gt;               
-## 28          917 &quot;Barnab… Dicke…                  37 en       Historical Fiction 
-## 29          918 &quot;Sketch… Dicke…                  37 en       &lt;NA&gt;               
-## 30          922 &quot;Sunday… Dicke…                  37 en       &lt;NA&gt;               
-## 31          924 &quot;To Be … Dicke…                  37 en       &lt;NA&gt;               
-## 32          927 &quot;The La… Dicke…                  37 en       &lt;NA&gt;               
-## 33          963 &quot;Little… Dicke…                  37 en       &lt;NA&gt;               
-## 34          967 &quot;Nichol… Dicke…                  37 en       &lt;NA&gt;               
-## 35          968 &quot;Martin… Dicke…                  37 en       Best Books Ever Li…
-## 36         1023 &quot;Bleak … Dicke…                  37 en       &lt;NA&gt;               
-## 37         1289 &quot;Three … Dicke…                  37 en       &lt;NA&gt;               
-## 38         1392 &quot;The Se… Dicke…                  37 en       &lt;NA&gt;               
-## 39         1394 &quot;The Ho… Dicke…                  37 en       &lt;NA&gt;               
-## 40         1400 &quot;Great … Dicke…                  37 en       Best Books Ever Li…
-## 41         1406 &quot;The Pe… Dicke…                  37 en       &lt;NA&gt;               
-## 42         1407 &quot;A Mess… Dicke…                  37 en       &lt;NA&gt;               
-## 43         1413 &quot;Tom Ti… Dicke…                  37 en       &lt;NA&gt;               
-## 44         1414 &quot;Somebo… Dicke…                  37 en       &lt;NA&gt;               
-## 45         1415 &quot;Doctor… Dicke…                  37 en       &lt;NA&gt;               
-## 46         1416 &quot;Mrs. L… Dicke…                  37 en       &lt;NA&gt;               
-## 47         1419 &quot;Mugby … Dicke…                  37 en       &lt;NA&gt;               
-## 48         1421 &quot;Mrs. L… Dicke…                  37 en       &lt;NA&gt;               
-## 49         1422 &quot;Going … Dicke…                  37 en       &lt;NA&gt;               
-## 50         1435 &quot;Miscel… Dicke…                  37 en       &lt;NA&gt;               
-## 51         1465 &quot;The Wr… Dicke…                  37 en       &lt;NA&gt;               
-## 52         1467 &quot;Some C… Dicke…                  37 en       Christmas          
-## 53        19337 &quot;A Chri… Dicke…                  37 en       Children&#39;s Literat…
-## 54        20795 &quot;The Cr… Dicke…                  37 en       Children&#39;s Literat…
-## 55        23344 &quot;The Ma… Dicke…                  37 en       Children&#39;s Picture…
-## 56        23452 &quot;The Tr… Dicke…                  37 en       Children&#39;s Picture…
-## 57        23765 &quot;Captai… Dicke…                  37 en       Children&#39;s Picture…
-## 58        25852 &quot;The Le… Dicke…                  37 en       &lt;NA&gt;               
-## 59        25853 &quot;The Le… Dicke…                  37 en       &lt;NA&gt;               
-## 60        25854 &quot;The Le… Dicke…                  37 en       &lt;NA&gt;               
-## 61        30368 &quot;A Chri… Dicke…                  37 en       &lt;NA&gt;               
-## 62        32241 &quot;Dicken… Dicke…                  37 en       &lt;NA&gt;               
-## 63        35536 &quot;The Po… Dicke…                  37 en       &lt;NA&gt;               
-## 64        37121 &quot;Charle… Dicke…                  37 en       &lt;NA&gt;               
-## 65        40723 &quot;The Ba… Dicke…                  37 en       &lt;NA&gt;               
-## 66        42232 &quot;A Chil… Dicke…                  37 en       &lt;NA&gt;               
-## 67        43111 &quot;The Pe… Dicke…                  37 en       &lt;NA&gt;               
-## 68        43207 &quot;Scenes… Dicke…                  37 en       &lt;NA&gt;               
-## 69        46675 &quot;Oliver… Dicke…                  37 en       &lt;NA&gt;               
-## 70        47529 &quot;Oliver… Dicke…                  37 en       &lt;NA&gt;               
-## 71        47530 &quot;Oliver… Dicke…                  37 en       &lt;NA&gt;               
-## 72        47531 &quot;Oliver… Dicke…                  37 en       &lt;NA&gt;               
-## 73        47534 &quot;The Po… Dicke…                  37 en       &lt;NA&gt;               
-## 74        47535 &quot;The Po… Dicke…                  37 en       &lt;NA&gt;               
-## # ℹ 4 more rows
+##  1           46 &quot;A Chri… Dicke…                  37 en       &quot;Children&#39;s Litera…
+##  2          564 &quot;The My… Dicke…                  37 en       &quot;Mystery Fiction&quot;  
+##  3          580 &quot;The Pi… Dicke…                  37 en       &quot;Best Books Ever L…
+##  4          699 &quot;A Chil… Dicke…                  37 en       &quot;Children&#39;s Histor…
+##  5          700 &quot;The Ol… Dicke…                  37 en       &quot;&quot;                 
+##  6          730 &quot;Oliver… Dicke…                  37 en       &quot;&quot;                 
+##  7          766 &quot;David … Dicke…                  37 en       &quot;Harvard Classics&quot; 
+##  8          821 &quot;Dombey… Dicke…                  37 en       &quot;&quot;                 
+##  9          917 &quot;Barnab… Dicke…                  37 en       &quot;Historical Fictio…
+## 10          963 &quot;Little… Dicke…                  37 en       &quot;&quot;                 
+## 11          967 &quot;Nichol… Dicke…                  37 en       &quot;&quot;                 
+## 12          968 &quot;Martin… Dicke…                  37 en       &quot;Best Books Ever L…
+## 13         1023 &quot;Bleak … Dicke…                  37 en       &quot;&quot;                 
+## 14         1392 &quot;The Se… Dicke…                  37 en       &quot;&quot;                 
+## 15         1394 &quot;The Ho… Dicke…                  37 en       &quot;&quot;                 
+## 16         1406 &quot;The Pe… Dicke…                  37 en       &quot;&quot;                 
+## 17         1407 &quot;A Mess… Dicke…                  37 en       &quot;&quot;                 
+## 18         1413 &quot;Tom Ti… Dicke…                  37 en       &quot;&quot;                 
+## 19         1414 &quot;Somebo… Dicke…                  37 en       &quot;&quot;                 
+## 20         1415 &quot;Doctor… Dicke…                  37 en       &quot;&quot;                 
+## 21         1416 &quot;Mrs. L… Dicke…                  37 en       &quot;&quot;                 
+## 22         1419 &quot;Mugby … Dicke…                  37 en       &quot;&quot;                 
+## 23         1421 &quot;Mrs. L… Dicke…                  37 en       &quot;&quot;                 
+## 24         1422 &quot;Going … Dicke…                  37 en       &quot;&quot;                 
+## 25         1423 &quot;No Tho… Dicke…                  37 en       &quot;&quot;                 
+## 26         1465 &quot;The Wr… Dicke…                  37 en       &quot;&quot;                 
+## 27        15618 &quot;The Lo… Dicke…                  37 en       &quot;&quot;                 
+## 28        19337 &quot;A Chri… Dicke…                  37 en       &quot;Children&#39;s Litera…
+## 29        20795 &quot;The Cr… Dicke…                  37 en       &quot;Children&#39;s Litera…
+## 30        23344 &quot;The Ma… Dicke…                  37 en       &quot;Children&#39;s Pictur…
+## 31        23452 &quot;The Tr… Dicke…                  37 en       &quot;Children&#39;s Pictur…
+## 32        23765 &quot;Captai… Dicke…                  37 en       &quot;Children&#39;s Pictur…
+## 33        25852 &quot;The Le… Dicke…                  37 en       &quot;&quot;                 
+## 34        25853 &quot;The Le… Dicke…                  37 en       &quot;&quot;                 
+## 35        25854 &quot;The Le… Dicke…                  37 en       &quot;&quot;                 
+## 36        25985 &quot;Bardel… Dicke…                  37 en       &quot;&quot;                 
+## 37        30127 &quot;Tales … Dicke…                  37 en       &quot;&quot;                 
+## 38        30368 &quot;A Chri… Dicke…                  37 en       &quot;&quot;                 
+## 39        32241 &quot;Dicken… Dicke…                  37 en       &quot;&quot;                 
+## 40        35536 &quot;The Po… Dicke…                  37 en       &quot;&quot;                 
+## 41        37121 &quot;Charle… Dicke…                  37 en       &quot;&quot;                 
+## 42        37581 &quot;The Cr… Dicke…                  37 en       &quot;&quot;                 
+## 43        40723 &quot;The Ba… Dicke…                  37 en       &quot;&quot;                 
+## 44        40729 &quot;\&quot;Old … Dicke…                  37 en       &quot;&quot;                 
+## 45        41739 &quot;A Chri… Dicke…                  37 en       &quot;&quot;                 
+## 46        41894 &quot;Christ… Dicke…                  37 en       &quot;&quot;                 
+## 47        42232 &quot;A Chil… Dicke…                  37 en       &quot;&quot;                 
+## 48        43111 &quot;The Pe… Dicke…                  37 en       &quot;&quot;                 
+## 49        43207 &quot;Scenes… Dicke…                  37 en       &quot;&quot;                 
+## 50        46675 &quot;Oliver… Dicke…                  37 en       &quot;&quot;                 
+## 51        47534 &quot;The Po… Dicke…                  37 en       &quot;&quot;                 
+## 52        47535 &quot;The Po… Dicke…                  37 en       &quot;&quot;                 
+## 53        49125 &quot;Storie… Dicke…                  37 en       &quot;&quot;                 
+## 54        52125 &quot;Nell a… Dicke…                  37 en       &quot;&quot;                 
 ## # ℹ 2 more variables: rights &lt;chr&gt;, has_text &lt;lgl&gt;</code></pre>
 <p>Now we have the complete output, we can go and identify the IDs of
 the works we’re interested in. We find that:</p>
 <ul>
-<li>46 = A Christmas Carol<br />
+<li>19337 = A Christmas Carol<br />
 </li>
-<li>98 = A Tale of Two Cities<br />
+<li>564 = The Mystery of Edwin Drood<br />
 </li>
 <li>580 = The Pickwick Papers<br />
 </li>
-<li>730 = Oliver Twist<br />
+<li>46675 = Oliver Twist<br />
 </li>
 <li>766 = David Copperfield<br />
 </li>
-<li>786 = Hard Times<br />
+<li>821 = Dombey and Son<br />
 </li>
 <li>967 = Nicholas Nickleby<br />
 </li>
-<li>1400 = Great Expectations</li>
+<li>1023 = Bleak House</li>
 </ul>
 <p>We could either download each of the texts individually, but that
 would be a hassle. Instead, we can save all of the ID numbers in a new
 variable, which we’ll call <code>list_dickens</code>:</p>
-<pre class="r"><code>list_dickens &lt;- c(46, 98, 580, 730, 766, 786, 967, 1400)</code></pre>
+<pre class="r"><code>list_dickens &lt;- c(19337, 564, 580, 46675, 766, 821, 967, 1023)</code></pre>
 <p>This allows us to download all of the texts in one go:</p>
-<pre class="r"><code>dickens_corpus &lt;- gutenberg_download(list_dickens, meta_fields = &quot;title&quot;)</code></pre>
-<pre><code>## Determining mirror for Project Gutenberg from https://www.gutenberg.org/robot/harvest</code></pre>
-<pre><code>## Using mirror http://aleph.gutenberg.org</code></pre>
+<pre class="r"><code>dickens_corpus &lt;- gutenberg_download(list_dickens, meta_fields = &quot;title&quot;, mirror = &quot;http://mirror.csclub.uwaterloo.ca/gutenberg&quot;)</code></pre>
 <p>With this, we download the eight novels, saving them to a data frame
 with one row per line per work, as well as the additional metadata of
 the title of each work. If one were working with works by different
@@ -831,20 +776,20 @@ don’t, we won’t.</p>
 <p>Taking a look at the <code>dickens_corpus</code> object is not yet
 very meaningful:</p>
 <pre class="r"><code>dickens_corpus</code></pre>
-<pre><code>## # A tibble: 182,668 × 3
-##    gutenberg_id text                         title                              
-##           &lt;int&gt; &lt;chr&gt;                        &lt;chr&gt;                              
-##  1           46 &quot;A CHRISTMAS CAROL&quot;          A Christmas Carol in Prose; Being …
-##  2           46 &quot;&quot;                           A Christmas Carol in Prose; Being …
-##  3           46 &quot;IN PROSE&quot;                   A Christmas Carol in Prose; Being …
-##  4           46 &quot;BEING&quot;                      A Christmas Carol in Prose; Being …
-##  5           46 &quot;A Ghost Story of Christmas&quot; A Christmas Carol in Prose; Being …
-##  6           46 &quot;&quot;                           A Christmas Carol in Prose; Being …
-##  7           46 &quot;by Charles Dickens&quot;         A Christmas Carol in Prose; Being …
-##  8           46 &quot;&quot;                           A Christmas Carol in Prose; Being …
-##  9           46 &quot;&quot;                           A Christmas Carol in Prose; Being …
-## 10           46 &quot;&quot;                           A Christmas Carol in Prose; Being …
-## # ℹ 182,658 more rows</code></pre>
+<pre><code>## # A tibble: 226,012 × 3
+##    gutenberg_id text                                      title                 
+##           &lt;int&gt; &lt;chr&gt;                                     &lt;chr&gt;                 
+##  1          564 &quot;The Mystery of Edwin Drood&quot;              The Mystery of Edwin …
+##  2          564 &quot;&quot;                                        The Mystery of Edwin …
+##  3          564 &quot;by Charles Dickens&quot;                      The Mystery of Edwin …
+##  4          564 &quot;&quot;                                        The Mystery of Edwin …
+##  5          564 &quot;&quot;                                        The Mystery of Edwin …
+##  6          564 &quot;Contents&quot;                                The Mystery of Edwin …
+##  7          564 &quot;&quot;                                        The Mystery of Edwin …
+##  8          564 &quot; CHAPTER I. THE DAWN&quot;                    The Mystery of Edwin …
+##  9          564 &quot; CHAPTER II. A DEAN, AND A CHAPTER ALSO&quot; The Mystery of Edwin …
+## 10          564 &quot; CHAPTER III. THE NUNS’ HOUSE&quot;           The Mystery of Edwin …
+## # ℹ 226,002 more rows</code></pre>
 <p>We can see the title of <em>A Christmas Carol</em>, with one line per
 row, but beyond that, not yet too much. So let’s get to the data
 processing that will allow us to do a bit of meaningful work with these
@@ -882,17 +827,17 @@ each sentence represents one row.</p>
                  text = stringr::str_squish(text)) -&gt; dickens_corpus</code></pre>
 <p>To check if the splitting into sentences has worked, let’s have a
 look at the transformed <code>dickens_corpus</code>:</p>
-<pre class="r"><code>head(dickens_corpus$text, 10)</code></pre>
-<pre><code>##  [1] &quot;A Ghost Story of Christmas by Charles Dickens I endeavoured in this Ghostly little book, to raise the Ghost of an Idea, which shall not put my readers out of humour with themselves, with each other, with the season, or with me.&quot;
-##  [2] &quot;May it haunt their houses pleasantly, and no one wish to lay it.&quot;                                                                                                                                                                   
-##  [3] &quot;Their faithful Friend and Servant, C. D. December, 1843.&quot;                                                                                                                                                                           
-##  [4] &quot;Stave I: Marley&#39;s Ghost Stave The First of the Three Spirits Stave The Second of the Three Spirits Stave The Last of the Spirits Stave V: The End of It I: &#39;S was dead: to begin with.&quot;                                             
-##  [5] &quot;There is no doubt whatever about that.&quot;                                                                                                                                                                                             
-##  [6] &quot;The register of his burial was signed by the clergyman, the clerk, the undertaker, and the chief mourner.&quot;                                                                                                                          
-##  [7] &quot;Scrooge signed it: and Scrooge&#39;s name was good upon &#39;Change, for anything he chose to put his hand to.&quot;                                                                                                                             
-##  [8] &quot;Old Marley was as dead as a door-nail.&quot;                                                                                                                                                                                             
-##  [9] &quot;Mind! I don&#39;t mean to say that I know, of my own knowledge, what there is particularly dead about a door-nail.&quot;                                                                                                                     
-## [10] &quot;I might have been inclined, myself, to regard a coffin-nail as the deadest piece of ironmongery in the trade.&quot;</code></pre>
+<pre class="r"><code>head(dickens_corpus$text, 10) %&gt;%
+  as.data.frame() %&gt;%
+  flextable() %&gt;%
+  flextable::set_table_properties(width = .95, layout = &quot;autofit&quot;) %&gt;%
+  flextable::theme_zebra() %&gt;%
+  flextable::fontsize(size = 12) %&gt;%
+  flextable::fontsize(size = 12, part = &quot;header&quot;) %&gt;%
+  flextable::align_text_col(align = &quot;center&quot;) %&gt;%
+  flextable::set_caption(caption = &quot;First 10 lines of the data.&quot;)  %&gt;%
+  flextable::border_outer()</code></pre>
+<div class="tabwid"><style>.cl-24cfdb04{table-layout:auto;width:95%;}.cl-24bb1494{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-24bb14b2{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-24c1995e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-24c1edd2{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-24c1edfa{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-24c1ee04{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-24c1ee0e{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-24cfdb04'><caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span>First 10 lines of the data.</span></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-24c1edd2"><p class="cl-24c1995e"><span class="cl-24bb1494">.</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-24c1edfa"><p class="cl-24c1995e"><span class="cl-24bb14b2">A By New York &amp; . _Copyright, 1905, by_ &amp; [Illustration: "He had been Tim's blood horse all the way from church.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1ee04"><p class="cl-24c1995e"><span class="cl-24bb14b2">"] The combined qualities of the realist and the idealist which Dickens possessed to a remarkable degree, together with his naturally jovial attitude toward life in general, seem to have given him a remarkably happy feeling toward Christmas, though the privations and hardships of his boyhood could have allowed him but little real experience with this day of days.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1edfa"><p class="cl-24c1995e"><span class="cl-24bb14b2">Dickens gave his first formal expression to his Christmas thoughts in his series of small books, the first of which was the famous "Christmas Carol," the one perfect chrysolite.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1ee04"><p class="cl-24c1995e"><span class="cl-24bb14b2">The success of the book was immediate.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1edfa"><p class="cl-24c1995e"><span class="cl-24bb14b2">Thackeray wrote of it: "Who can listen to objections regarding such a book as this? It seems to me a national benefit, and to every man or woman who reads it, a personal kindness.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1ee04"><p class="cl-24c1995e"><span class="cl-24bb14b2">" This volume was put forth in a very attractive manner, with illustrations by John Leech, who was the first artist to make these characters live, and his drawings were varied and spirited.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1edfa"><p class="cl-24c1995e"><span class="cl-24bb14b2">There followed upon this four others: "The Chimes," "The Cricket on the Hearth," "The Battle of Life," and "The Haunted Man," with illustrations on their first appearance by Doyle, Maclise, and others.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1ee04"><p class="cl-24c1995e"><span class="cl-24bb14b2">The five are known to-day as the "Christmas Books.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1edfa"><p class="cl-24c1995e"><span class="cl-24bb14b2">" Of them all the "Carol" is the best known and loved, and "The Cricket on the Hearth," although third in the series, is perhaps next in point of popularity, and is especially familiar to Americans through Joseph Jefferson's characterisation of Caleb Plummer.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-24c1ee0e"><p class="cl-24c1995e"><span class="cl-24bb14b2">Dickens seems to have put his whole self into these glowing little stories.</span></p></td></tr></tbody></table></div>
 <p>As we can see, we are left with a data frame consisting of many rows
 and 2 columns with each row representing one sentence. Unfortunately,
 the sentence tokenisation has not worked perfectly as we see that in the
@@ -902,22 +847,22 @@ Charles Dickens</em>) it still attached to the first sentence.</p>
 look at the titles, in the form of a table:</p>
 <pre class="r"><code>table(dickens_corpus$title)</code></pre>
 <pre><code>## 
-## A Christmas Carol in Prose; Being a Ghost Story of Christmas 
-##                                                         1419 
-##                                         A Tale of Two Cities 
-##                                                         6525 
-##                                            David Copperfield 
-##                                                        17792 
-##                                           Great Expectations 
-##                                                         8363 
-##                                                   Hard Times 
-##                                                         5778 
-##                                            Nicholas Nickleby 
-##                                                        14763 
-##                                                 Oliver Twist 
-##                                                         8017 
-##                                          The Pickwick Papers 
-##                                                        19120</code></pre>
+##                                        A Christmas Carol 
+##                                                     1445 
+##                                              Bleak House 
+##                                                    19464 
+##                                        David Copperfield 
+##                                                    17792 
+##                                           Dombey and Son 
+##                                                    13457 
+##                                        Nicholas Nickleby 
+##                                                    14763 
+## Oliver Twist; or, The Parish Boy&#39;s Progress. Illustrated 
+##                                                     8019 
+##                               The Mystery of Edwin Drood 
+##                                                     5402 
+##                                      The Pickwick Papers 
+##                                                    19120</code></pre>
 <p>This command builds a contingency table, basically counting how many
 documents in the corpus are associated with each title. This shows us,
 on the one hand, how different in length the different novels are. On
@@ -1011,57 +956,19 @@ speech tag and the entity. Most of this, we will ignore for the current
 purpose. What we need to get the corpus into processable form are the
 part of speech tags.</p>
 <p>So let’s look at the first few entries:</p>
-<pre class="r"><code>head(dickens_parsed, n=15)</code></pre>
-<pre><code>##    doc_id paragraph_id sentence_id token_id       token      lemma  upos xpos
-## 1    doc1            1           1        1           A          a   DET   DT
-## 2    doc1            1           1        2       Ghost      Ghost   ADJ   JJ
-## 3    doc1            1           1        3       Story      story  NOUN   NN
-## 4    doc1            1           1        4          of         of   ADP   IN
-## 5    doc1            1           1        5   Christmas  Christmas PROPN  NNP
-## 6    doc1            1           1        6          by         by   ADP   IN
-## 7    doc1            1           1        7     Charles    Charles PROPN  NNP
-## 8    doc1            1           1        8     Dickens    Dickens PROPN NNPS
-## 9    doc1            1           1        9           I          I  PRON  PRP
-## 10   doc1            1           1       10 endeavoured endeavoure  VERB  VBD
-## 11   doc1            1           1       11          in         in   ADP   IN
-## 12   doc1            1           1       12        this       this  PRON   DT
-## 13   doc1            1           1       13     Ghostly    ghostly   ADV   RB
-## 14   doc1            1           1       14      little     little   ADJ   JJ
-## 15   doc1            1           1       15        book       book  NOUN   NN
-##                                         feats head_token_id dep_rel deps
-## 1                   Definite=Ind|PronType=Art             3     det &lt;NA&gt;
-## 2                                  Degree=Pos             3    amod &lt;NA&gt;
-## 3                                 Number=Sing            10   nsubj &lt;NA&gt;
-## 4                                        &lt;NA&gt;             5    case &lt;NA&gt;
-## 5                                 Number=Sing             3    nmod &lt;NA&gt;
-## 6                                        &lt;NA&gt;             7    case &lt;NA&gt;
-## 7                                 Number=Sing             5    nmod &lt;NA&gt;
-## 8                                 Number=Plur             7    flat &lt;NA&gt;
-## 9  Case=Nom|Number=Sing|Person=1|PronType=Prs            10   nsubj &lt;NA&gt;
-## 10           Mood=Ind|Tense=Past|VerbForm=Fin             0    root &lt;NA&gt;
-## 11                                       &lt;NA&gt;            12    case &lt;NA&gt;
-## 12                   Number=Sing|PronType=Dem            10     obl &lt;NA&gt;
-## 13                                       &lt;NA&gt;            14  advmod &lt;NA&gt;
-## 14                                 Degree=Pos            15    amod &lt;NA&gt;
-## 15                                Number=Sing            10     obj &lt;NA&gt;
-##             misc
-## 1           &lt;NA&gt;
-## 2           &lt;NA&gt;
-## 3           &lt;NA&gt;
-## 4           &lt;NA&gt;
-## 5           &lt;NA&gt;
-## 6           &lt;NA&gt;
-## 7           &lt;NA&gt;
-## 8           &lt;NA&gt;
-## 9           &lt;NA&gt;
-## 10          &lt;NA&gt;
-## 11          &lt;NA&gt;
-## 12          &lt;NA&gt;
-## 13          &lt;NA&gt;
-## 14          &lt;NA&gt;
-## 15 SpaceAfter=No</code></pre>
+<pre class="r"><code>head(dickens_parsed, n=15) %&gt;%
+  as.data.frame() %&gt;%
+  flextable() %&gt;%
+  flextable::set_table_properties(width = .95, layout = &quot;autofit&quot;) %&gt;%
+  flextable::theme_zebra() %&gt;%
+  flextable::fontsize(size = 12) %&gt;%
+  flextable::fontsize(size = 12, part = &quot;header&quot;) %&gt;%
+  flextable::align_text_col(align = &quot;center&quot;) %&gt;%
+  flextable::set_caption(caption = &quot;First 15 lines of the parsed data.&quot;)  %&gt;%
+  flextable::border_outer()</code></pre>
+<div class="tabwid"><style>.cl-291f9e92{table-layout:auto;width:95%;}.cl-290a4d94{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-290a4da8{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-29129ca6{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-29129cc4{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2912d9aa{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9be{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9bf{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9c8{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9c9{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9d2{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9d3{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9dc{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9dd{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9e6{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9e7{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9f0{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9f1{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9fa{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9fb{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2912d9fc{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-291f9e92'><caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span>First 15 lines of the parsed data.</span></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-2912d9aa"><p class="cl-29129ca6"><span class="cl-290a4d94">doc_id</span></p></th><th class="cl-2912d9be"><p class="cl-29129cc4"><span class="cl-290a4d94">paragraph_id</span></p></th><th class="cl-2912d9be"><p class="cl-29129cc4"><span class="cl-290a4d94">sentence_id</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">token_id</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">token</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">lemma</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">upos</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">xpos</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">feats</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">head_token_id</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">dep_rel</span></p></th><th class="cl-2912d9bf"><p class="cl-29129ca6"><span class="cl-290a4d94">deps</span></p></th><th class="cl-2912d9c8"><p class="cl-29129ca6"><span class="cl-290a4d94">misc</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-2912d9c9"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">A</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">a</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">DET</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">DT</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Definite=Ind|PronType=Art</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">3</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">det</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9dc"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9dd"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">2</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Ghost</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Ghost</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">ADJ</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">JJ</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Degree=Pos</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">3</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">amod</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9f0"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9c9"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">3</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Story</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">story</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">NOUN</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">NN</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Number=Sing</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">10</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">nsubj</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9dc"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9dd"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">4</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">of</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">of</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">ADP</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">IN</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">5</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">case</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9f0"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9c9"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">5</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Christmas</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Christmas</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">PROPN</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">NNP</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Number=Sing</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">3</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">nmod</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9dc"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9dd"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">6</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">by</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">by</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">ADP</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">IN</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">7</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">case</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9f0"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9c9"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">7</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Charles</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Charles</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">PROPN</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">NNP</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Number=Sing</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">5</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">nmod</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9dc"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9dd"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">8</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Dickens</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Dickens</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">PROPN</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">NNPS</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Number=Plur</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">7</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">flat</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9f0"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9c9"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">9</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">I</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">I</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">PRON</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">PRP</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Case=Nom|Number=Sing|Person=1|PronType=Prs</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">10</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">nsubj</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9dc"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9dd"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">10</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">endeavoured</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">endeavoure</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">VERB</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">VBD</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Mood=Ind|Tense=Past|VerbForm=Fin</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">0</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">root</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9f0"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9c9"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">11</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">in</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">in</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">ADP</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">IN</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">12</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">case</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9dc"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9dd"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">12</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">this</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">this</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">PRON</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">DT</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Number=Sing|PronType=Dem</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">10</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">obl</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9f0"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9c9"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d2"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">13</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">Ghostly</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">ghostly</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">ADV</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">RB</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">14</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8">advmod</span></p></td><td class="cl-2912d9d3"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9dc"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9dd"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e6"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">14</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">little</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">little</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">ADJ</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">JJ</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">Degree=Pos</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">15</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8">amod</span></p></td><td class="cl-2912d9e7"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9f0"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2912d9f1"><p class="cl-29129ca6"><span class="cl-290a4da8">doc1</span></p></td><td class="cl-2912d9fa"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9fa"><p class="cl-29129cc4"><span class="cl-290a4da8">1</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8">15</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8">book</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8">book</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8">NOUN</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8">NN</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8">Number=Sing</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8">10</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8">obj</span></p></td><td class="cl-2912d9fb"><p class="cl-29129ca6"><span class="cl-290a4da8"></span></p></td><td class="cl-2912d9fc"><p class="cl-29129ca6"><span class="cl-290a4da8">SpaceAfter=No</span></p></td></tr></tbody></table></div>
 <p>In these 15 rows we already see both the uses and the drawbacks of
-what we are about to do. In rows 13 and 14 we find the words
+what we are about to do. In rows 7 and 8 we find the words
 <em>Charles</em> and <em>Dickens</em>, respectively. These get
 identified correctly as proper nouns. Looking at rows 3 and 5, however,
 we see that also <em>Christmas</em> and <em>Carol</em> get identified as
@@ -1170,55 +1077,17 @@ how much of an improvement this is for the final model, it’s an
 absolutely acceptable price to pay.</p>
 <p>It’s also worth checking briefly whether it was actually successful
 at removing what we wanted to remove:</p>
-<pre class="r"><code>head(no_prop_dickens, n=15)</code></pre>
-<pre><code>##    doc_id paragraph_id sentence_id token_id       token      lemma  upos xpos
-## 1    doc1            1           1        1           A          a   DET   DT
-## 2    doc1            1           1        2       Ghost      Ghost   ADJ   JJ
-## 3    doc1            1           1        3       Story      story  NOUN   NN
-## 4    doc1            1           1        4          of         of   ADP   IN
-## 5    doc1            1           1        6          by         by   ADP   IN
-## 6    doc1            1           1        9           I          I  PRON  PRP
-## 7    doc1            1           1       10 endeavoured endeavoure  VERB  VBD
-## 8    doc1            1           1       11          in         in   ADP   IN
-## 9    doc1            1           1       12        this       this  PRON   DT
-## 10   doc1            1           1       13     Ghostly    ghostly   ADV   RB
-## 11   doc1            1           1       14      little     little   ADJ   JJ
-## 12   doc1            1           1       15        book       book  NOUN   NN
-## 13   doc1            1           1       16           ,          , PUNCT    ,
-## 14   doc1            1           1       17          to         to  PART   TO
-## 15   doc1            1           1       18       raise      raise  VERB   VB
-##                                         feats head_token_id dep_rel deps
-## 1                   Definite=Ind|PronType=Art             3     det &lt;NA&gt;
-## 2                                  Degree=Pos             3    amod &lt;NA&gt;
-## 3                                 Number=Sing            10   nsubj &lt;NA&gt;
-## 4                                        &lt;NA&gt;             5    case &lt;NA&gt;
-## 5                                        &lt;NA&gt;             7    case &lt;NA&gt;
-## 6  Case=Nom|Number=Sing|Person=1|PronType=Prs            10   nsubj &lt;NA&gt;
-## 7            Mood=Ind|Tense=Past|VerbForm=Fin             0    root &lt;NA&gt;
-## 8                                        &lt;NA&gt;            12    case &lt;NA&gt;
-## 9                    Number=Sing|PronType=Dem            10     obl &lt;NA&gt;
-## 10                                       &lt;NA&gt;            14  advmod &lt;NA&gt;
-## 11                                 Degree=Pos            15    amod &lt;NA&gt;
-## 12                                Number=Sing            10     obj &lt;NA&gt;
-## 13                                       &lt;NA&gt;            10   punct &lt;NA&gt;
-## 14                                       &lt;NA&gt;            18    mark &lt;NA&gt;
-## 15                               VerbForm=Inf            10   advcl &lt;NA&gt;
-##             misc
-## 1           &lt;NA&gt;
-## 2           &lt;NA&gt;
-## 3           &lt;NA&gt;
-## 4           &lt;NA&gt;
-## 5           &lt;NA&gt;
-## 6           &lt;NA&gt;
-## 7           &lt;NA&gt;
-## 8           &lt;NA&gt;
-## 9           &lt;NA&gt;
-## 10          &lt;NA&gt;
-## 11          &lt;NA&gt;
-## 12 SpaceAfter=No
-## 13          &lt;NA&gt;
-## 14          &lt;NA&gt;
-## 15          &lt;NA&gt;</code></pre>
+<pre class="r"><code>head(no_prop_dickens, n=15) %&gt;%
+  as.data.frame() %&gt;%
+  flextable() %&gt;%
+  flextable::set_table_properties(width = .95, layout = &quot;autofit&quot;) %&gt;%
+  flextable::theme_zebra() %&gt;%
+  flextable::fontsize(size = 12) %&gt;%
+  flextable::fontsize(size = 12, part = &quot;header&quot;) %&gt;%
+  flextable::align_text_col(align = &quot;center&quot;) %&gt;%
+  flextable::set_caption(caption = &quot;First 15 lines of the parsed data after removing proper nouns.&quot;)  %&gt;%
+  flextable::border_outer()</code></pre>
+<div class="tabwid"><style>.cl-29e7a8ce{table-layout:auto;width:95%;}.cl-29dbebce{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-29dbebe2{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-29e007fe{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-29e00808{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-29e0259a{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025ae{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025af{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025b8{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025b9{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025ba{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025c2{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025c3{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025cc{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025cd{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025ce{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025d6{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025d7{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025d8{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025e0{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29e025e1{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-29e7a8ce'><caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span>First 15 lines of the parsed data after removing proper nouns.</span></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-29e0259a"><p class="cl-29e007fe"><span class="cl-29dbebce">doc_id</span></p></th><th class="cl-29e025ae"><p class="cl-29e00808"><span class="cl-29dbebce">paragraph_id</span></p></th><th class="cl-29e025ae"><p class="cl-29e00808"><span class="cl-29dbebce">sentence_id</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">token_id</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">token</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">lemma</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">upos</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">xpos</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">feats</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">head_token_id</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">dep_rel</span></p></th><th class="cl-29e025af"><p class="cl-29e007fe"><span class="cl-29dbebce">deps</span></p></th><th class="cl-29e025b8"><p class="cl-29e007fe"><span class="cl-29dbebce">misc</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-29e025b9"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">A</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">a</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">DET</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">DT</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">Definite=Ind|PronType=Art</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">3</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">det</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c3"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025cc"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">2</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">Ghost</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">Ghost</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">ADJ</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">JJ</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">Degree=Pos</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">3</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">amod</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025d6"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025b9"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">3</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">Story</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">story</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">NOUN</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">NN</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">Number=Sing</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">10</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">nsubj</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c3"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025cc"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">4</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">of</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">of</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">ADP</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">IN</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">5</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">case</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025d6"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025b9"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">6</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">by</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">by</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">ADP</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">IN</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">7</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">case</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c3"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025cc"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">9</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">I</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">I</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">PRON</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">PRP</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">Case=Nom|Number=Sing|Person=1|PronType=Prs</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">10</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">nsubj</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025d6"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025b9"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">10</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">endeavoured</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">endeavoure</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">VERB</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">VBD</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">Mood=Ind|Tense=Past|VerbForm=Fin</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">0</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">root</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c3"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025cc"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">11</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">in</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">in</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">ADP</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">IN</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">12</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">case</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025d6"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025b9"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">12</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">this</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">this</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">PRON</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">DT</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">Number=Sing|PronType=Dem</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">10</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">obl</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c3"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025cc"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">13</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">Ghostly</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">ghostly</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">ADV</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">RB</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">14</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">advmod</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025d6"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025b9"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">14</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">little</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">little</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">ADJ</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">JJ</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">Degree=Pos</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">15</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">amod</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c3"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025cc"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">15</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">book</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">book</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">NOUN</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">NN</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">Number=Sing</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">10</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">obj</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025d6"><p class="cl-29e007fe"><span class="cl-29dbebe2">SpaceAfter=No</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025b9"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ba"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">16</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">,</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">,</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">PUNCT</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">,</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">10</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2">punct</span></p></td><td class="cl-29e025c2"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025c3"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025cc"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025cd"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">17</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">to</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">to</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">PART</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">TO</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">18</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2">mark</span></p></td><td class="cl-29e025ce"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025d6"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29e025d7"><p class="cl-29e007fe"><span class="cl-29dbebe2">doc1</span></p></td><td class="cl-29e025d8"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025d8"><p class="cl-29e00808"><span class="cl-29dbebe2">1</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2">18</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2">raise</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2">raise</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2">VERB</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2">VB</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2">VerbForm=Inf</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2">10</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2">advcl</span></p></td><td class="cl-29e025e0"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td><td class="cl-29e025e1"><p class="cl-29e007fe"><span class="cl-29dbebe2"></span></p></td></tr></tbody></table></div>
 <p>The first fifteen rows certainly indicate a success: gone is
 <em>Christmas</em> and <em>Carol</em>, gone is <em>Charles</em> and
 <em>Dickens</em>. Certain other features that are also not helpful for
@@ -1247,17 +1116,17 @@ removing punctuation and non-alphanumeric characters:</p>
 new variable <code>toks</code>, coercing the contents into a token
 object. With this, we get rid of a lot of excess information that is not
 relevant for the next steps. Let’s take a look:</p>
-<pre class="r"><code>head(toks, n=10)</code></pre>
-<pre><code>##  [1] &quot;a ghost story of by i endeavoure in this ghostly little book  to raise the ghost of a idea  which shall not put my reader out of humour with themselves  with each other  with the season  or with i  may it haunt they house pleasantly  and no one wish to lay it  they faithful friend and   1843 &quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-##  [2] &quot;stave i  ghost there be no doubt whatever about that  the register of he burial be sign by the clergyman  the clerk  the undertaker  and the chief mourner  sign it  and name be good upon   for anything he choose to put he hand to  be as dead as a door nail  mind &quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-##  [3] &quot;i might have be inclin  myself  to regard a coffin nail as the deadest piece of ironmongery in the trade  but the wisdom of we ancestor be in the simile  and my unhallowed hand shall not disturb it  or the country do for  you will therefore permit i to repeat  emphatically  that be as dead as a door  nail  know he be dead &quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-##  [4] &quot;how could it be otherwise &quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-##  [5] &quot;be he sole executor  he sole administrator  he sole assign  he sole residuary legatee  he sole friend  and sole mourner  and even be not so dreadfully cut up by the sad event  but that he be a excellent man of business on the very day of the funeral  and solemnise it with a undoubted bargain  the mention of funeral bring i back to the point i start from  there be no doubt that be dead  this must be distinctly understand  or nothing wonderful can come of the story i be go to relate  if we be not perfectly convince that die before the play begin  there would be nothing more remarkable in he take a stroll at night  in a easterly wind  upon he own rampart  than there would be in any other middle  a gentleman rashly turn out after dark in a breezy spot  say for instance  literally to astonish he son weak mind  never paint out name  there it stand  year afterwards  above the warehouse door  and  the firm be know as and  sometimes people new to the business call  and sometimes  but he answer to both name  it be all the same to he  oh &quot;                                                                                                                                                                                                                                                                                                                      
-##  [6] &quot;the cold within he froze he old feature  nip he point nose  shrivell he cheek  stiffen he gait  make he eye red  he thin lip blue  and speak out shrewdly in he grating voice  frosty rime be on he head  and on he eyebrow  and he wiry ching  he carry he own low temperature always about with he  he ice he office in the dog  day  and do not thaw it one degree at  external heat and could have little influence on  no warmth could warm  no wintry weather chill he  no wind that blew be bitterer than he  no falling snow be more intent upon its purpose  no pelting rain less open to entreaty &quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-##  [7] &quot;foul weather do not know where to have he  the heaviest rain  and snow  and hail  and sleet  could boast of the advantage over he in only one respect  they often  come down  handsomely  and never do  nobody ever stop he in the street to say  with gladsome look   my dear scrooge  how be you &quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-##  [8] &quot;even the blind man dog appear to know he  and when they see he come on  would tug they owner into doorway and up court  and then would wag they tail as though they say   no eye at all be better than a evil eye  dark master &quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-##  [9] &quot; to edge he way along the crowded path of life  warn all human sympathy to keep its distance  be what the know one call  nut  to  once upon a time  of all the good day in the year  on old sit busy in he counting  house  it be cold  bleak  biting weather  foggy withal  and he could hear the people in the court outside  go wheeze up and down  beat they hand upon they breast  and stampe they foot upon the pavement stone to warm they  the city clock have only just go three  but it be quite dark already  it have not be light all day  and candle be flar in the window of the neighbour office  like ruddy smear upon the palpable brown air  the fog come pour in at every chink and keyhole  and be so dense without  that although the court be of the narrowest  the house opposite be mere phantoms  to see the dingy clould come droope down  obscur everything  one might have think that liv hard by  and be brew on a large scale  the door of counting  house be open that he might keep he eye upon he clerk  who in a dismal little cell beyond  a sort of tank  be copying letter  have a very small fire  but the clerk fire be so very much smaller that it look like one coal  but he could not replenish it  for keep the coal  box in he own room  and so surely as the clerk come in with the shovel  the master predict that it would be necessary for they to part &quot;
-## [10] &quot;wherefore the clerk put on he white comforter  and try to warm himself at the candle  in which effort  not be a man of a strong imagination  he fail   a merry  uncle &quot;</code></pre>
+<pre class="r"><code>head(toks, n=10) %&gt;%
+  as.data.frame() %&gt;%
+  flextable() %&gt;%
+  flextable::set_table_properties(width = .95, layout = &quot;autofit&quot;) %&gt;%
+  flextable::theme_zebra() %&gt;%
+  flextable::fontsize(size = 12) %&gt;%
+  flextable::fontsize(size = 12, part = &quot;header&quot;) %&gt;%
+  flextable::align_text_col(align = &quot;center&quot;) %&gt;%
+  flextable::set_caption(caption = &quot;First 10 sentences of the cleaned data.&quot;)  %&gt;%
+  flextable::border_outer()</code></pre>
+<div class="tabwid"><style>.cl-2ac6aa1a{table-layout:auto;width:95%;}.cl-2ab963a0{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2ab963b4{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2abe8a10{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2abeae28{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2abeae3c{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2abeae46{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2abeae47{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-2ac6aa1a'><caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span>First 10 sentences of the cleaned data.</span></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-2abeae28"><p class="cl-2abe8a10"><span class="cl-2ab963a0">.</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-2abeae3c"><p class="cl-2abe8a10"><span class="cl-2ab963b4">a ghost story of by i endeavoure in this ghostly little book  to raise the ghost of a idea  which shall not put my reader out of humour with themselves  with each other  with the season  or with i  may it haunt they house pleasantly  and no one wish to lay it  they faithful friend and   1843 </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae46"><p class="cl-2abe8a10"><span class="cl-2ab963b4">stave i  ghost there be no doubt whatever about that  the register of he burial be sign by the clergyman  the clerk  the undertaker  and the chief mourner  sign it  and name be good upon   for anything he choose to put he hand to  be as dead as a door nail  mind </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae3c"><p class="cl-2abe8a10"><span class="cl-2ab963b4">i might have be inclin  myself  to regard a coffin nail as the deadest piece of ironmongery in the trade  but the wisdom of we ancestor be in the simile  and my unhallowed hand shall not disturb it  or the country do for  you will therefore permit i to repeat  emphatically  that be as dead as a door  nail  know he be dead </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae46"><p class="cl-2abe8a10"><span class="cl-2ab963b4">how could it be otherwise </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae3c"><p class="cl-2abe8a10"><span class="cl-2ab963b4">be he sole executor  he sole administrator  he sole assign  he sole residuary legatee  he sole friend  and sole mourner  and even be not so dreadfully cut up by the sad event  but that he be a excellent man of business on the very day of the funeral  and solemnise it with a undoubted bargain  the mention of funeral bring i back to the point i start from  there be no doubt that be dead  this must be distinctly understand  or nothing wonderful can come of the story i be go to relate  if we be not perfectly convince that die before the play begin  there would be nothing more remarkable in he take a stroll at night  in a easterly wind  upon he own rampart  than there would be in any other middle  a gentleman rashly turn out after dark in a breezy spot  say for instance  literally to astonish he son weak mind  never paint out name  there it stand  year afterwards  above the warehouse door  and  the firm be know as and  sometimes people new to the business call  and sometimes  but he answer to both name  it be all the same to he  oh </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae46"><p class="cl-2abe8a10"><span class="cl-2ab963b4">the cold within he froze he old feature  nip he point nose  shrivell he cheek  stiffen he gait  make he eye red  he thin lip blue  and speak out shrewdly in he grating voice  frosty rime be on he head  and on he eyebrow  and he wiry ching  he carry he own low temperature always about with he  he ice he office in the dog  day  and do not thaw it one degree at  external heat and could have little influence on  no warmth could warm  no wintry weather chill he  no wind that blew be bitterer than he  no falling snow be more intent upon its purpose  no pelting rain less open to entreaty </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae3c"><p class="cl-2abe8a10"><span class="cl-2ab963b4">foul weather do not know where to have he  the heaviest rain  and snow  and hail  and sleet  could boast of the advantage over he in only one respect  they often  come down  handsomely  and never do  nobody ever stop he in the street to say  with gladsome look   my dear scrooge  how be you </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae46"><p class="cl-2abe8a10"><span class="cl-2ab963b4">even the blind man dog appear to know he  and when they see he come on  would tug they owner into doorway and up court  and then would wag they tail as though they say   no eye at all be better than a evil eye  dark master </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae3c"><p class="cl-2abe8a10"><span class="cl-2ab963b4"> to edge he way along the crowded path of life  warn all human sympathy to keep its distance  be what the know one call  nut  to  once upon a time  of all the good day in the year  on old sit busy in he counting  house  it be cold  bleak  biting weather  foggy withal  and he could hear the people in the court outside  go wheeze up and down  beat they hand upon they breast  and stampe they foot upon the pavement stone to warm they  the city clock have only just go three  but it be quite dark already  it have not be light all day  and candle be flar in the window of the neighbour office  like ruddy smear upon the palpable brown air  the fog come pour in at every chink and keyhole  and be so dense without  that although the court be of the narrowest  the house opposite be mere phantoms  to see the dingy clould come droope down  obscur everything  one might have think that liv hard by  and be brew on a large scale  the door of counting  house be open that he might keep he eye upon he clerk  who in a dismal little cell beyond  a sort of tank  be copying letter  have a very small fire  but the clerk fire be so very much smaller that it look like one coal  but he could not replenish it  for keep the coal  box in he own room  and so surely as the clerk come in with the shovel  the master predict that it would be necessary for they to part </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2abeae47"><p class="cl-2abe8a10"><span class="cl-2ab963b4">wherefore the clerk put on he white comforter  and try to warm himself at the candle  in which effort  not be a man of a strong imagination  he fail   a merry  uncle </span></p></td></tr></tbody></table></div>
 <p>The corpus now looks a lot like it did before we started with the
 pre-processing: we see that again each sentence occupies one document.
 The obvious difference is that all the proper nouns are gone - as we
@@ -1395,7 +1264,7 @@ that occur in an object.</p>
 <pre class="r"><code>list_toks &lt;- unlist(toks, use.names = F)</code></pre>
 <p>Now, we basically have Dickens novels as a long list of individual
 words, without a proper name:</p>
-<pre class="r"><code>head(list_toks, n=15)</code></pre>
+<pre class="r"><code>head(list_toks, n=15) </code></pre>
 <pre><code>##  [1] &quot;ghost&quot;      &quot;story&quot;      &quot;endeavoure&quot; &quot;ghostly&quot;    &quot;little&quot;    
 ##  [6] &quot;book&quot;       &quot;raise&quot;      &quot;ghost&quot;      &quot;idea&quot;       &quot;shall&quot;     
 ## [11] &quot;put&quot;        &quot;reader&quot;     &quot;humour&quot;     &quot;season&quot;     &quot;may&quot;</code></pre>
@@ -1440,8 +1309,10 @@ Finally, with the specifications in the square brackets, we say that
 this process should be carried out for the whole length of our corpus.
 Confused yet?</p>
 <p>If we simply were to run this command, instead of assigning it to the
-object
-<code>r``, as we do above, the output would be a list of 1,000 repetitions of</code>1<code>, followed by 1,000 repetitions of</code>2<code>and so on, until we get to 1,000 repetitions of</code>716<code>and finally some repetitions of</code>717`.</p>
+object <code>r</code>, as we do above, the output would be a list of
+1,000 repetitions of <code>1</code>, followed by 1,000 repetitions of
+<code>2</code> and so on, until we get to 1,000 repetitions of
+<code>716</code> and finally some repetitions of <code>717</code>.</p>
 <p>Have a look at the variable r, for instance with the table
 function:</p>
 <pre class="r"><code>table(r)</code></pre>
@@ -2383,7 +2254,8 @@ it!</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="unnumbered">References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 <div id="ref-blei2003lda" class="csl-entry">
 Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. <span>“Latent
 Dirichlet Allocation.”</span> <em>Journal of Machine Learning
@@ -2431,7 +2303,7 @@ Research.”</span> <em>Poetics</em> 41 (6): 725–49.
 <li id="fn1"><p>If you want to render the R Notebook on your machine,
 i.e. knitting the document to html or a pdf, you need to make sure that
 you have R and RStudio installed and you also need to download the <a
-href="https://slcladal.github.io/content/bibliography.bib"><strong>bibliography
+href="https://slcladal.github.io/content/bibtex.bib"><strong>bibliography
 file</strong></a> and store it in the same folder where you store the
 Rmd file.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
