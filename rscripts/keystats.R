@@ -17,6 +17,7 @@ keystats <- function(x){
     dplyr::mutate(R1 = text1+text2,
                   R2 = N - R1,
                   O11 = text1,
+                  O11 = ifelse(O11 == 0, O11+0.1, O11),
                   O12 = R1-O11,
                   O21 = C1-O11,
                   O22 = C2-O12) %>%
@@ -40,8 +41,7 @@ keystats <- function(x){
     dplyr::mutate(phi = sqrt((X2 / N)),
                   MI = log2(O11 / E11),
                   t.score = (O11 - E11) / sqrt(O11),
-                  PMI = log2( (O11 / N) / ((O11+O12) / N) * 
-                                ((O11+O21) / N) ),
+                  PMI = log2( (O11 / N) / ( C1 / N * R1 / N )),
                   DeltaP = (O11 / R1) - (O21 / R2),
                   LogOddsRatio = log(((O11 + 0.5) * (O22 + 0.5))  / ( (O12 + 0.5) * (O21 + 0.5) )),
                   G2 = 2 * ((O11+ 0.001) * log((O11+ 0.001) / E11) + (O12+ 0.001) * log((O12+ 0.001) / E12) + O21 * log(O21 / E21) + O22 * log(O22 / E22)),
